@@ -17,8 +17,7 @@ export default function CodeEditor() {
     (state: RootState) => state.compilerSlice.fullCode
   );
 
-
-  const onChange = React.useCallback((value: string) =>  {
+  const onChange = React.useCallback((value: string) => {
     // console.log("val:", typeof val);
     // setValue(val);
     dispatch(updateCodeValue(value));
