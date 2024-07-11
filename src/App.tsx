@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Compiler from "./pages/Compiler";
 import NotFound from "./pages/NotFound";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "./components/theme-provider";
 
 export default function App() {
   return (
