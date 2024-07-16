@@ -3,9 +3,7 @@ import {
   Asterisk,
   CodeXml,
   Copy,
-  LoaderCircle,
   Parentheses,
-  Save,
   Share2,
   Slash,
 } from "lucide-react";
@@ -16,9 +14,8 @@ import {
   updateCurrentLanguage,
 } from "../redux/slices/compilerSlice";
 import { RootState } from "../redux/slices/store";
-import { handleError } from "../utils/handleError";
-import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   Dialog,
@@ -32,14 +29,7 @@ import { Tabs, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { toast } from "sonner";
 
 export default function HelperHeader() {
-  const [saveLoading, setSaveLoading] = useState<boolean>(false);
   const [shareBtn, setShareBtn] = useState<boolean>(false);
-
-  const navigate = useNavigate();
-
-  const fullCode = useSelector(
-    (state: RootState) => state.compilerSlice.fullCode
-  );
 
   const { urlId } = useParams();
   useEffect(() => {
@@ -49,20 +39,6 @@ export default function HelperHeader() {
       setShareBtn(false);
     }
   }, [urlId]);
-
-  const handleSaveCode = async () => {
-    setSaveLoading(true);
-    try {
-      const response = await axios.post("http://localhost:4000/compiler/save", {
-        fullCode: fullCode,
-      });
-      navigate(`/compiler/${response.data.url}`, { replace: true });
-    } catch (error) {
-      handleError(error);
-    } finally {
-      setSaveLoading(false);
-    }
-  };
 
   const dispatch = useDispatch();
   const currentLanguage = useSelector(
@@ -84,21 +60,21 @@ export default function HelperHeader() {
           className="w-[400px]"
         >
           <TabsList>
-            <TabsTrigger value="html" className=" gap-1 flex">
+            <TabsTrigger value="html" className=" gap-1 flex text-white">
               <Slash size={14} className="bg-red-600 rounded items-center" />
               <span className="font-bold text-white font-sans">HTML</span>
             </TabsTrigger>
             <TabsTrigger value="css" className=" gap-1 flex">
               <Asterisk
                 size={16}
-                className="bg-teal-400 rounded items-center"
+                className="bg-teal-400 rounded items-center text-white"
               />
               <span className="font-bold text-white font-sans">CSS</span>
             </TabsTrigger>
             <TabsTrigger value="javascript" className=" gap-1 flex">
               <Parentheses
                 size={16}
-                className="bg-yellow-500 rounded items-center"
+                className="bg-yellow-500 rounded items-center text-black"
               />
               <span className="font-bold text-white font-sans">JS</span>
             </TabsTrigger>
