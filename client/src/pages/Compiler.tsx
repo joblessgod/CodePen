@@ -47,20 +47,50 @@ export default function Compiler() {
 
   return (
     <>
-      <CompilerHeader />
-      <ResizablePanelGroup direction="horizontal" className="rounded-lg border">
-        <ResizablePanel
-          className="h-[calc(100dvh-65px)] min-w-[350px]"
-          defaultSize={50}
+      <div>
+        <CompilerHeader />
+        <ResizablePanelGroup
+          direction="horizontal"
+          className=" rounded-lg border"
         >
-          <HelperHeader />
-          <CodeEditor />
-        </ResizablePanel>
-        <ResizableHandle />
-        <ResizablePanel className="h-[calc(100dvh-65px)" defaultSize={50}>
-          <RenderCode />
-        </ResizablePanel>
-      </ResizablePanelGroup>
+          <ResizablePanel
+            className="hidden h-[calc(100dvh-65px)] w-full"
+            defaultSize={50}
+          >
+            {/* Left side of a compiler */}
+            <HelperHeader />
+            <CodeEditor />
+          </ResizablePanel>
+          <ResizableHandle />
+          <ResizablePanel
+            className="hidden h-[calc(100dvh-65px)] w-full"
+            defaultSize={50}
+          >
+            {/* Right side of a compiler */}
+            <RenderCode />
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      </div>
+
+      <div className="h-[calc(100dvh-65px)]">
+        <ResizablePanelGroup direction="vertical" className="rounded-lg border">
+          <ResizablePanel
+            defaultSize={50}
+            className="h-[calc(100dvh-65px)] w-full"
+          >
+            <HelperHeader />
+            <CodeEditor />
+          </ResizablePanel>
+
+          <ResizableHandle withHandle />
+          <ResizablePanel
+            defaultSize={50}
+            className="flex h-full items-center justify-center w-full"
+          >
+            <RenderCode />
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      </div>
     </>
   );
 }

@@ -23,8 +23,8 @@ export default function RenderCode() {
     combinedCode
   )}`;
   return (
-    <div className="bg-white h-[calc(100dvh-60px)]">
-      <iframe src={iframeCode} className="w-full h-full"/>
+    <div className="w-full h-[calc(100dvh-60px)]">
+      <iframe src={iframeCode} className="w-full h-full border-2" />
     </div>
   );
 }

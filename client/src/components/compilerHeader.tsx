@@ -1,5 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import { LoaderCircle, PanelsTopLeft, Save, Settings } from "lucide-react";
+import {
+  LoaderCircle,
+  PanelsTopLeft,
+  Save,
+  Settings,
+  Tally4,
+} from "lucide-react";
 import { Button } from "../components/ui/button";
 import {
   DropdownMenu,
@@ -14,7 +20,6 @@ import { useState } from "react";
 
 import { MdViewSidebar } from "react-icons/md";
 import { handleError } from "../utils/handleError";
-import { updateFullCode } from "../redux/slices/compilerSlice";
 import axios from "axios";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
@@ -43,31 +48,37 @@ export default function CompilerHeader() {
   };
   return (
     <>
-      <nav className="w-full h-[60px] bg-gray-900 text-white p-3 flex justify-between items-center">
-        <Link to="/" className="font-bold select-none">
-          Web Dev Compiler
-        </Link>
+      <nav className="w-full h-[60px] bg-gray-900 text-white p-3 md:flex md:justify-between items-center">
+        <div className="flex justify-between items-center ">
+          <Link to="/" className="font-bold select-none">
+            <h1>Web Dev Compiler</h1>
+            <small className="font-normal">Job Less God</small>
+          </Link>
+          <div className="flex items-center justify-center gap-2">
+            <Button
+              onClick={() => {
+                handleSaveCode();
+                toast.success("Your code has been saved.");
+              }}
+              variant={"success"}
+              disabled={saveLoading}
+              className="gap-1 flex justify-between items-center"
+            >
+              {saveLoading ? (
+                <>
+                  <LoaderCircle size={16} className="animate-spin" /> Saving
+                </>
+              ) : (
+                <>
+                  <Save size={16} /> Save
+                </>
+              )}
+            </Button>
+            <Tally4 className="rotate-[90deg] md:hidden" />
+          </div>
+        </div>
 
-        <ul className="flex gap-2">
-          <Button
-            onClick={() => {
-              handleSaveCode();
-              toast.success("Your code has been saved.");
-            }}
-            variant={"success"}
-            disabled={saveLoading}
-            className="gap-1 flex justify-between items-center"
-          >
-            {saveLoading ? (
-              <>
-                <LoaderCircle size={16} className="animate-spin" /> Saving
-              </>
-            ) : (
-              <>
-                <Save size={16} /> Save
-              </>
-            )}
-          </Button>
+        <ul className="hidden md:flex md:gap-2">
           <Button
             variant={"secondary"}
             className=" flex gap-1 items-center justify-center"
