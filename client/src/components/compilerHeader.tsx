@@ -48,8 +48,8 @@ export default function CompilerHeader() {
   };
   return (
     <>
-      <nav className="w-full h-[60px] bg-gray-900 text-white p-3 md:flex md:justify-between items-center">
-        <div className="flex justify-between items-center ">
+      <nav className="w-full h-[60px] bg-gray-900 text-white p-3 md:flex  items-center">
+        <div className="flex justify-between md:justify-between items-center ">
           <Link to="/" className="font-bold select-none">
             <h1>Web Dev Compiler</h1>
             <small className="font-normal">Job Less God</small>
