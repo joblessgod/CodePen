@@ -13,6 +13,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { updateFullCode } from "../redux/slices/compilerSlice";
 import { toast } from "sonner";
+import CompilerHeader from "../components/compilerHeader";
 
 export default function Compiler() {
   const { urlId } = useParams();
@@ -30,36 +31,36 @@ export default function Compiler() {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error?.response?.status === 500) {
-          toast.error("Invalid Code! Loading default code!");
+          toast.error("Invalid Id! Loading default code!");
           navigate("/compiler");
         }
       }
-
       handleError(error);
     }
   };
   useEffect(() => {
     if (urlId) {
       loadCode();
+      console.log("useEffect");
     }
   }, [urlId]);
 
   return (
-    <ResizablePanelGroup direction="horizontal" className="rounded-lg border">
-      <ResizablePanel
-        className="h-[calc(100dvh-65px)] min-w-[350px]"
-        defaultSize={50}
-      >
-        <HelperHeader />
-        <CodeEditor />
-      </ResizablePanel>
-      <ResizableHandle />
-      <ResizablePanel
-        className="h-[calc(100dvh-65px)] min-w-[350px]"
-        defaultSize={50}
-      >
-        <RenderCode />
-      </ResizablePanel>
-    </ResizablePanelGroup>
+    <>
+      <CompilerHeader />
+      <ResizablePanelGroup direction="horizontal" className="rounded-lg border">
+        <ResizablePanel
+          className="h-[calc(100dvh-65px)] min-w-[350px]"
+          defaultSize={50}
+        >
+          <HelperHeader />
+          <CodeEditor />
+        </ResizablePanel>
+        <ResizableHandle />
+        <ResizablePanel className="h-[calc(100dvh-65px)" defaultSize={50}>
+          <RenderCode />
+        </ResizablePanel>
+      </ResizablePanelGroup>
+    </>
   );
 }

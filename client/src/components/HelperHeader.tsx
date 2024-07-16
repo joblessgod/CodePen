@@ -1,12 +1,6 @@
 import { Button } from "./ui/button";
 import { CodeXml, Copy, LoaderCircle, Save, Share2 } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   CompilerSliceStateType,
@@ -25,6 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../components/ui/dialog";
+import { Tabs, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { toast } from "sonner";
 
 export default function HelperHeader() {
@@ -67,26 +62,27 @@ export default function HelperHeader() {
 
   return (
     <div className="__helper_header h-[50px] bg-black text-white p-2 items-center justify-between flex ">
-      <div className="__btn_container gap-1 flex">
-        <Button
-          onClick={() => {
-            handleSaveCode();
-            toast.success("Your code has been saved.");
-          }}
-          variant={"success"}
-          disabled={saveLoading}
-          className="gap-1 flex justify-between items-center"
+      <div className="__tab_switcher flex gap-1 items-center justify-between">
+        <Tabs
+          defaultValue={currentLanguage}
+          onValueChange={(value) =>
+            dispatch(
+              updateCurrentLanguage(
+                value as CompilerSliceStateType["currentLanguage"]
+              )
+            )
+          }
+          className="w-[400px]"
         >
-          {saveLoading ? (
-            <>
-              <LoaderCircle size={16} className="animate-spin" /> Saving
-            </>
-          ) : (
-            <>
-              <Save size={16} /> Save
-            </>
-          )}
-        </Button>
+          <TabsList>
+            <TabsTrigger value="html">HTML</TabsTrigger>
+            <TabsTrigger value="css">CSS</TabsTrigger>
+            <TabsTrigger value="javascript">JavaScript</TabsTrigger>
+          </TabsList>
+        </Tabs>
+      </div>
+
+      <div className="__btn_container gap-1 flex">
         {shareBtn && (
           <>
             <Dialog>
@@ -137,29 +133,6 @@ export default function HelperHeader() {
             </Dialog>
           </>
         )}
-      </div>
-
-      <div className="__tab_switcher flex gap-1 items-center justify-between">
-        <small> Current Language:</small>
-        <Select
-          defaultValue={currentLanguage}
-          onValueChange={(value) =>
-            dispatch(
-              updateCurrentLanguage(
-                value as CompilerSliceStateType["currentLanguage"]
-              )
-            )
-          }
-        >
-          <SelectTrigger className="w-[180px] bg-gray-800">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="html">HTML</SelectItem>
-            <SelectItem value="css">CSS</SelectItem>
-            <SelectItem value="javascript">JavaScript</SelectItem>
-          </SelectContent>
-        </Select>
       </div>
     </div>
   );

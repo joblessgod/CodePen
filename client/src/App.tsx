@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Header from "./components/Header";
+// import Header from "./components/Header";
 import Home from "./pages/Home";
 import Compiler from "./pages/Compiler";
 import NotFound from "./pages/NotFound";
@@ -11,7 +11,7 @@ export default function App() {
     <>
     <Toaster richColors position="bottom-right" theme="system" />
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Header />
+        {/* <Header /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/compiler" element={<Compiler />} />
