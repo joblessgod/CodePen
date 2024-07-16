@@ -1,5 +1,14 @@
 import { Button } from "./ui/button";
-import { CodeXml, Copy, LoaderCircle, Save, Share2 } from "lucide-react";
+import {
+  Asterisk,
+  CodeXml,
+  Copy,
+  LoaderCircle,
+  Parentheses,
+  Save,
+  Share2,
+  Slash,
+} from "lucide-react";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -75,9 +84,24 @@ export default function HelperHeader() {
           className="w-[400px]"
         >
           <TabsList>
-            <TabsTrigger value="html">HTML</TabsTrigger>
-            <TabsTrigger value="css">CSS</TabsTrigger>
-            <TabsTrigger value="javascript">JavaScript</TabsTrigger>
+            <TabsTrigger value="html" className=" gap-1 flex">
+              <Slash size={14} className="bg-red-600 rounded items-center" />
+              <span className="font-bold text-white font-sans">HTML</span>
+            </TabsTrigger>
+            <TabsTrigger value="css" className=" gap-1 flex">
+              <Asterisk
+                size={16}
+                className="bg-teal-400 rounded items-center"
+              />
+              <span className="font-bold text-white font-sans">CSS</span>
+            </TabsTrigger>
+            <TabsTrigger value="javascript" className=" gap-1 flex">
+              <Parentheses
+                size={16}
+                className="bg-yellow-500 rounded items-center"
+              />
+              <span className="font-bold text-white font-sans">JS</span>
+            </TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
