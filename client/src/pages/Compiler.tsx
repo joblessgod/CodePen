@@ -47,23 +47,23 @@ export default function Compiler() {
 
   return (
     <>
-      <div>
-        <CompilerHeader />
+      <CompilerHeader />
+      <div className="hidden md:contents">
         <ResizablePanelGroup
           direction="horizontal"
           className=" rounded-lg border"
         >
           <ResizablePanel
-            className="hidden h-[calc(100dvh-65px)] w-full"
+            className=" h-[calc(100dvh-65px)] w-full"
             defaultSize={50}
           >
             {/* Left side of a compiler */}
             <HelperHeader />
             <CodeEditor />
           </ResizablePanel>
-          <ResizableHandle />
+          <ResizableHandle withHandle className="" />
           <ResizablePanel
-            className="hidden h-[calc(100dvh-65px)] w-full"
+            className=" h-[calc(100dvh-65px)] w-full"
             defaultSize={50}
           >
             {/* Right side of a compiler */}
@@ -72,7 +72,7 @@ export default function Compiler() {
         </ResizablePanelGroup>
       </div>
 
-      <div className="h-[calc(100dvh-65px)]">
+      <div className="h-[calc(100dvh-65px)] md:hidden">
         <ResizablePanelGroup direction="vertical" className="rounded-lg border">
           <ResizablePanel
             defaultSize={50}
