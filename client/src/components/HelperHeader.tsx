@@ -13,8 +13,24 @@ import {
   updateCurrentLanguage,
 } from "../redux/slices/compilerSlice";
 import { RootState } from "../redux/slices/store";
+import { handleError } from "../utils/handleError";
+import axios from "axios";
 
 export default function HelperHeader() {
+  const fullCode = useSelector(
+    (state: RootState) => state.compilerSlice.fullCode
+  );
+  const handleSaveCode = async () => {
+    try {
+      const response = await axios.post("http://localhost:4000/compiler/save", {
+        fullCode: fullCode,
+      });
+      console.log(response.data)
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
   const dispatch = useDispatch();
   const currentLanguage = useSelector(
     (state: RootState) => state.compilerSlice.currentLanguage
@@ -24,6 +40,7 @@ export default function HelperHeader() {
     <div className="__helper_header h-[50px] bg-black text-white p-2 items-center justify-between flex ">
       <div className="__btn_container gap-1 flex">
         <Button
+        onClick={handleSaveCode}
           variant={"success"}
           className="gap-1 flex justify-between items-center"
         >

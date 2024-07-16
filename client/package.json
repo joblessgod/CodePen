@@ -18,6 +18,7 @@
     "@uiw/codemirror-extensions-langs": "^4.23.0",
     "@uiw/codemirror-theme-dracula": "^4.23.0",
     "@uiw/react-codemirror": "^4.23.0",
+    "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.407.0",
