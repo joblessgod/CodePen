@@ -5,6 +5,7 @@ import {
   Save,
   Settings,
   Tally4,
+  X,
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import {
@@ -46,15 +47,125 @@ export default function CompilerHeader() {
       setSaveLoading(false);
     }
   };
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  function toggleSideMenu() {
+    console.log("Side Menu open");
+    setIsMenuOpen(!isMenuOpen);
+  }
   return (
     <>
-      <nav className="w-full h-[60px] bg-gray-900 text-white p-3 md:flex  items-center">
-        <div className="flex justify-between md:justify-between items-center ">
+      <nav className="w-full h-[60px] bg-gray-900 text-white p-3">
+        <div className="flex justify-between items-center">
           <Link to="/" className="font-bold select-none">
             <h1>Web Dev Compiler</h1>
             <small className="font-normal">Job Less God</small>
           </Link>
-          <div className="flex items-center justify-center gap-2">
+          {/* mobile version (for mobile responsive) */}
+          <div className="md:hidden flex gap-1 items-center">
+            <Tally4 className="rotate-[90deg] " onClick={toggleSideMenu} />
+
+            {/* This is that overshowing menu */}
+            <div
+              className={`${
+                isMenuOpen ? "translate-x-0" : "translate-x-full"
+              } fixed bottom-0 right-0 top-0 z-30 flex w-[50%] flex-col bg-slate-800 p-12 text-white transition-all ease-linear md:static md:w-auto md:flex-row md:gap-4 md:bg-transparent md:p-0 md:text-black `}
+            >
+              <X
+                size={50}
+                className="rotate-[90deg] md:hidden"
+                onClick={toggleSideMenu}
+              />
+              {/* flex grow property */}
+              <ul className="md:hidden md:justify-center text-center  md:gap-1">
+                <Button
+                  onClick={() => {
+                    handleSaveCode();
+                    toast.success("Your code has been saved.");
+                  }}
+                  variant={"success"}
+                  disabled={saveLoading}
+                  className=" gap-1 flex justify-between items-center"
+                >
+                  {saveLoading ? (
+                    <>
+                      <LoaderCircle size={16} className="animate-spin" /> Saving
+                    </>
+                  ) : (
+                    <div className="flex items-center gap-1">
+                      <Save size={16} /> Save
+                    </div>
+                  )}
+                </Button>
+                <Button
+                  variant={"secondary"}
+                  className="bg-transparent md:bg-none flex gap-1 items-center justify-center"
+                >
+                  <Settings size={18} />
+                  Settings
+                </Button>
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant={"secondary"}
+                      className="bg-transparent md:bg-none"
+                    >
+                      <PanelsTopLeft />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel>
+                      Change View{" "}
+                      <small className="font-serif font-normal text-[10px] text-red-500">
+                        (SOON)
+                      </small>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuRadioGroup
+                      value={position}
+                      onValueChange={setPosition}
+                      className="flex flex-row"
+                    >
+                      <DropdownMenuRadioItem value="left">
+                        <MdViewSidebar className="rotate-[180deg] size-8 items-center justify-center flex" />
+                      </DropdownMenuRadioItem>
+
+                      <DropdownMenuRadioItem value="top">
+                        <MdViewSidebar className="rotate-[270deg] size-8 items-center justify-center flex" />
+                      </DropdownMenuRadioItem>
+
+                      <DropdownMenuRadioItem value="right">
+                        <MdViewSidebar className="rotate-[0deg] size-8 items-center justify-center flex" />
+                      </DropdownMenuRadioItem>
+                    </DropdownMenuRadioGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <Link to="/signup">
+                  <Button
+                    className="p-5  bg-transparent md:bg-none"
+                    variant={"success"}
+                  >
+                    Sign Up
+                  </Button>
+                </Link>
+
+                <Link to="/login">
+                  <Button
+                    className="p-5 bg-transparent md:bg-none"
+                    variant={"secondary"}
+                  >
+                    Log In
+                  </Button>
+                </Link>
+              </ul>
+            </div>
+          </div>
+
+          {/* over md size desktops */}
+          <ul className="hidden md:flex md:justify-center md:gap-2">
             <Button
               onClick={() => {
                 handleSaveCode();
@@ -62,67 +173,64 @@ export default function CompilerHeader() {
               }}
               variant={"success"}
               disabled={saveLoading}
-              className="gap-1 flex justify-between items-center"
+              className=" gap-1 flex justify-between items-center"
             >
               {saveLoading ? (
                 <>
                   <LoaderCircle size={16} className="animate-spin" /> Saving
                 </>
               ) : (
-                <>
+                <div className="flex items-center gap-1">
                   <Save size={16} /> Save
-                </>
+                </div>
               )}
             </Button>
-            <Tally4 className="rotate-[90deg] md:hidden" />
-          </div>
+
+            <Button
+              variant={"secondary"}
+              className=" flex gap-1 items-center justify-center"
+            >
+              <Settings size={18} />
+              Settings
+            </Button>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant={"secondary"}>
+                  <PanelsTopLeft />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuLabel>Change View</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuRadioGroup
+                  value={position}
+                  onValueChange={setPosition}
+                  className="flex flex-row"
+                >
+                  <DropdownMenuRadioItem value="left">
+                    <MdViewSidebar className="rotate-[180deg] size-8 items-center justify-center flex" />
+                  </DropdownMenuRadioItem>
+
+                  <DropdownMenuRadioItem value="top">
+                    <MdViewSidebar className="rotate-[270deg] size-8 items-center justify-center flex" />
+                  </DropdownMenuRadioItem>
+
+                  <DropdownMenuRadioItem value="right">
+                    <MdViewSidebar className="rotate-[0deg] size-8 items-center justify-center flex" />
+                  </DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <Link to="/signup">
+              <Button variant={"success"}>Sign Up</Button>
+            </Link>
+            <Link to="/login">
+              <Button variant={"secondary"}>Log In</Button>
+            </Link>
+          </ul>
         </div>
-
-        <ul className="hidden md:flex md:gap-2">
-          <Button
-            variant={"secondary"}
-            className=" flex gap-1 items-center justify-center"
-          >
-            <Settings size={18} />
-            Settings
-          </Button>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant={"secondary"}>
-                <PanelsTopLeft />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
-              <DropdownMenuLabel>Change View</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuRadioGroup
-                value={position}
-                onValueChange={setPosition}
-                className="flex flex-row"
-              >
-                <DropdownMenuRadioItem value="left">
-                  <MdViewSidebar className="rotate-[180deg] size-8 items-center justify-center flex" />
-                </DropdownMenuRadioItem>
-
-                <DropdownMenuRadioItem value="top">
-                  <MdViewSidebar className="rotate-[270deg] size-8 items-center justify-center flex" />
-                </DropdownMenuRadioItem>
-
-                <DropdownMenuRadioItem value="right">
-                  <MdViewSidebar className="rotate-[0deg] size-8 items-center justify-center flex" />
-                </DropdownMenuRadioItem>
-              </DropdownMenuRadioGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <Link to="/signup">
-            <Button variant={"success"}>Sign Up</Button>
-          </Link>
-          <Link to="/login">
-            <Button variant={"secondary"}>Log In</Button>
-          </Link>
-        </ul>
       </nav>
     </>
   );
