@@ -42,7 +42,7 @@ export default function CompilerHeader() {
       const response = await axios.post("http://localhost:4000/compiler/save", {
         fullCode: fullCode,
       });
-      navigate(`/compiler/${response.data.url}`, { replace: true });
+      navigate(`/pen/${response.data.url}`, { replace: true });
     } catch (error) {
       handleError(error);
     } finally {
