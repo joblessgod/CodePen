@@ -1,5 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
+  Copy,
   LoaderCircle,
   PanelsTopLeft,
   Save,
@@ -75,8 +76,22 @@ export default function CompilerHeader() {
 
             <div className="font-bold select-none">
               <h1>Untitled </h1>
-              <small className="font-normal text-slate-400">
-                {savedFile ? `Id: ${urlId}` : "Captain Anonymous"}
+              <small className="font-normal  gap-1 items-center flex text-slate-400">
+                {savedFile ? (
+                  <>
+                    Id: ${urlId}
+                    <Copy
+                      onClick={() => {
+                        window.navigator.clipboard.writeText(`${urlId}`);
+                        toast.success("Copied to clipboard")
+                      }}
+                      size={12}
+                      className="hover:text-white hover:cursor-pointer"
+                    />
+                  </>
+                ) : (
+                  "Captain Anonymous"
+                )}
               </small>
             </div>
           </div>
