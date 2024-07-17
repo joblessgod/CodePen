@@ -1,10 +1,10 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
+  Cog,
   Copy,
   LoaderCircle,
   PanelsTopLeft,
   Save,
-  Settings,
   Tally4,
   X,
 } from "lucide-react";
@@ -76,14 +76,14 @@ export default function CompilerHeader() {
 
             <div className="font-bold select-none">
               <h1>Untitled </h1>
-              <small className="font-normal  gap-1 items-center flex text-slate-400">
+              <small className="font-normal gap-1 max-md:text-[10px] items-center flex text-slate-400">
                 {savedFile ? (
                   <>
-                    Id: ${urlId}
+                    Id: {urlId}
                     <Copy
                       onClick={() => {
                         window.navigator.clipboard.writeText(`${urlId}`);
-                        toast.success("Copied to clipboard")
+                        toast.success("Copied to clipboard");
                       }}
                       size={12}
                       className="hover:text-white hover:cursor-pointer"
@@ -135,7 +135,7 @@ export default function CompilerHeader() {
                   variant={"secondary"}
                   className="bg-transparent md:bg-none flex gap-1 items-center justify-center"
                 >
-                  <Settings size={18} />
+                  <Cog size={18} />
                   Settings
                 </Button>
 
@@ -222,7 +222,7 @@ export default function CompilerHeader() {
               variant={"secondary"}
               className=" flex gap-1 items-center justify-center"
             >
-              <Settings size={18} />
+              <Cog size={18} />
               Settings
             </Button>
 
