@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   LoaderCircle,
   PanelsTopLeft,
@@ -17,7 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { MdViewSidebar } from "react-icons/md";
 import { handleError } from "../utils/handleError";
@@ -33,6 +33,7 @@ export default function CompilerHeader() {
   );
   const [saveLoading, setSaveLoading] = useState<boolean>(false);
   const [position, setPosition] = useState("bottom");
+  const [savedFile, setSavedFileName] = useState(false);
 
   const handleSaveCode = async () => {
     setSaveLoading(true);
@@ -54,14 +55,31 @@ export default function CompilerHeader() {
     console.log("Side Menu open");
     setIsMenuOpen(!isMenuOpen);
   }
+
+  const { urlId } = useParams();
+  useEffect(() => {
+    if (urlId) {
+      setSavedFileName(true);
+    } else {
+      setSavedFileName(false);
+    }
+  }, [urlId]);
   return (
     <>
       <nav className="w-full h-[60px] bg-gray-900 text-white p-3">
         <div className="flex justify-between items-center">
-          <Link to="/" className="font-bold select-none">
-            <h1>Web Dev Compiler</h1>
-            <small className="font-normal">Job Less God</small>
-          </Link>
+          <div className="flex gap-3">
+            <Link to={"/"}>
+              <img src="/codepen_logo.png" className="h-10 w-10" />
+            </Link>
+
+            <div className="font-bold select-none">
+              <h1>Untitled </h1>
+              <small className="font-normal text-slate-400">
+                {savedFile ? `Id: ${urlId}` : "Captain Anonymous"}
+              </small>
+            </div>
+          </div>
           {/* mobile version (for mobile responsive) */}
           <div className="md:hidden flex gap-1 items-center">
             <Button
@@ -169,7 +187,6 @@ export default function CompilerHeader() {
             <Button
               onClick={() => {
                 handleSaveCode();
-                toast.success("Your code has been saved.");
               }}
               variant={"success"}
               disabled={saveLoading}

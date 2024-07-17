@@ -36,7 +36,7 @@ export default function HelperHeader() {
     if (urlId) {
       setShareBtn(true);
     } else {
-      setShareBtn(true);
+      setShareBtn(false);
     }
   }, [urlId]);
 
@@ -88,9 +88,9 @@ export default function HelperHeader() {
               <DialogTrigger>
                 <Button
                   variant={"secondary"}
-                  className="gap-1 flex justify-between items-center"
+                  className="gap-1 group flex justify-between items-center"
                 >
-                  <Share2 size={16} />
+                  <Share2 className="group-hover:fill-white" size={16} />
                   Share
                 </Button>
               </DialogTrigger>

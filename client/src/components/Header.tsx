@@ -6,7 +6,11 @@ export default function Header() {
     <>
       <nav className="w-full h-[60px] bg-gray-900 text-white p-3 flex justify-between items-center">
         <Link to="/" className="font-bold select-none">
-          Web Dev Compiler
+          <img
+            src="/codepen-home_logo.png"
+            alt="Code Pen"
+            className="w-40 select-none"
+          />
         </Link>
 
         <ul className="flex gap-2">
