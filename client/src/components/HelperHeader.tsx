@@ -36,7 +36,7 @@ export default function HelperHeader() {
     if (urlId) {
       setShareBtn(true);
     } else {
-      setShareBtn(false);
+      setShareBtn(true);
     }
   }, [urlId]);
 
@@ -46,7 +46,7 @@ export default function HelperHeader() {
   );
 
   return (
-    <div className="__helper_header h-[50px] bg-black text-white p-2 items-center justify-between flex ">
+    <div className="__helper_header h-[50px] bg-black text-white p-2 items-center justify-between flex">
       <div className="__tab_switcher flex gap-1 items-center justify-between">
         <Tabs
           defaultValue={currentLanguage}
@@ -57,7 +57,6 @@ export default function HelperHeader() {
               )
             )
           }
-          className="w-[400px]"
         >
           <TabsList>
             <TabsTrigger value="html" className=" gap-1 flex text-white">
