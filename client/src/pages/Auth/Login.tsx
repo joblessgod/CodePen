@@ -5,8 +5,8 @@ export default function Login() {
   return (
     <>
       <Header />
-      <section className="bg-gray-50 dark:bg-black">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <section className="h-[calc(100dvh-60px)] bg-black">
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-full">
           <a
             href="#"
             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"

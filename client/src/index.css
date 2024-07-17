@@ -66,6 +66,9 @@
   }
 }
 
+/* * {
+  background-color: rgba(229, 218, 218, 0.206);
+} */
 @layer base {
   * {
     @apply border-border;
