@@ -64,6 +64,25 @@ export default function CompilerHeader() {
           </Link>
           {/* mobile version (for mobile responsive) */}
           <div className="md:hidden flex gap-1 items-center">
+            <Button
+              onClick={() => {
+                handleSaveCode();
+                toast.success("Your code has been saved.");
+              }}
+              variant={"success"}
+              disabled={saveLoading}
+              className=" gap-1 flex justify-between items-center"
+            >
+              {saveLoading ? (
+                <>
+                  <LoaderCircle size={16} className="animate-spin" /> Saving
+                </>
+              ) : (
+                <div className="flex items-center gap-1">
+                  <Save size={16} /> Save
+                </div>
+              )}
+            </Button>
             <Tally4 className="rotate-[90deg] " onClick={toggleSideMenu} />
 
             {/* This is that overshowing menu */}
@@ -79,25 +98,6 @@ export default function CompilerHeader() {
               />
               {/* flex grow property */}
               <ul className="md:hidden md:justify-center text-center  md:gap-1">
-                <Button
-                  onClick={() => {
-                    handleSaveCode();
-                    toast.success("Your code has been saved.");
-                  }}
-                  variant={"success"}
-                  disabled={saveLoading}
-                  className=" gap-1 flex justify-between items-center"
-                >
-                  {saveLoading ? (
-                    <>
-                      <LoaderCircle size={16} className="animate-spin" /> Saving
-                    </>
-                  ) : (
-                    <div className="flex items-center gap-1">
-                      <Save size={16} /> Save
-                    </div>
-                  )}
-                </Button>
                 <Button
                   variant={"secondary"}
                   className="bg-transparent md:bg-none flex gap-1 items-center justify-center"
