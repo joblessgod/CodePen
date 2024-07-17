@@ -15,7 +15,7 @@ export default function Header() {
 
         <ul className="flex gap-2">
           <Link to="/compiler">
-            <Button variant={"secondary"}>Compiler</Button>
+            <Button variant={"secondary"}>Start Coding</Button>
           </Link>
         </ul>
       </nav>
