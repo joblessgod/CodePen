@@ -5,8 +5,8 @@ import Compiler from "./pages/Compiler";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./components/theme-provider";
 import { Toaster } from "sonner";
-import Signup from "./pages/Auth/Signup";
 import Login from "./pages/Auth/Login";
+import Signup from "./pages/Auth/Signup";
 
 export default function App() {
   return (
@@ -16,8 +16,7 @@ export default function App() {
         {/* <Header /> */}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/pen/" element={<Compiler />} />
-          <Route path="/pen/:urlId" element={<Compiler />} />
+          <Route path="/pen/:urlId?" element={<Compiler />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />

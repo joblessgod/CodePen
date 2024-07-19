@@ -1,0 +1,9 @@
+.grid-bg {
+  background-color: #090b0d;
+  opacity: 0.9;
+  background-image: radial-gradient(
+    #1e293b 1.4500000000000002px,
+    #090b0d 1.4500000000000002px
+  );
+  background-size: 29px 29px;
+}

@@ -5,7 +5,7 @@ export default function Home() {
     <>
       <Header />
 
-      <div className=" w-full h-[calc(100dvh-60px)] text-white flex justify-center items-center flex-col gap-4">
+      <div className=" w-full h-[calc(100dvh-60px)]  text-white flex justify-center items-center flex-col gap-4">
         <div className="gap-1 w-full text-center ">
           <h1 className="text-center text-4xl font-bold">Code Pen</h1>
           <small className="text-slate-700">by @JobLessGod</small>
