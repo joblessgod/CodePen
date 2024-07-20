@@ -22,31 +22,31 @@ import { useEffect, useState } from "react";
 
 import { MdViewSidebar } from "react-icons/md";
 import { handleError } from "../utils/handleError";
-import axios from "axios";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/slices/store";
+import { useSaveCodeMutation } from "../redux/slices/api";
 
 export default function CompilerHeader() {
   const navigate = useNavigate();
   const fullCode = useSelector(
     (state: RootState) => state.compilerSlice.fullCode
   );
-  const [saveLoading, setSaveLoading] = useState<boolean>(false);
+
+  const [saveCode, { isLoading }] = useSaveCodeMutation();
+
   const [position, setPosition] = useState("bottom");
   const [savedFile, setSavedFileName] = useState(false);
 
   const handleSaveCode = async () => {
-    setSaveLoading(true);
     try {
-      const response = await axios.post("http://localhost:4000/compiler/save", {
-        fullCode: fullCode,
-      });
-      navigate(`/pen/${response.data.url}`, { replace: true });
+      // const response = await axios.post("http://localhost:4000/compiler/save", {
+      //   fullCode: fullCode,
+      // });
+      const response = await saveCode(fullCode).unwrap();
+      navigate(`/pen/${response.url}`, { replace: true });
     } catch (error) {
       handleError(error);
-    } finally {
-      setSaveLoading(false);
     }
   };
 
@@ -103,10 +103,10 @@ export default function CompilerHeader() {
                 toast.success("Your code has been saved.");
               }}
               variant={"success"}
-              disabled={saveLoading}
+              disabled={isLoading}
               className=" gap-1 flex justify-between items-center"
             >
-              {saveLoading ? (
+              {isLoading ? (
                 <>
                   <LoaderCircle size={16} className="animate-spin" /> Saving
                 </>
@@ -204,10 +204,10 @@ export default function CompilerHeader() {
                 handleSaveCode();
               }}
               variant={"success"}
-              disabled={saveLoading}
+              disabled={isLoading}
               className=" gap-1 flex justify-between items-center"
             >
-              {saveLoading ? (
+              {isLoading ? (
                 <>
                   <LoaderCircle size={16} className="animate-spin" /> Saving
                 </>

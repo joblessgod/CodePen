@@ -38,7 +38,7 @@ export const login = async (req: Request, res: Response) => {
     } else {
       existingUser = await User.findOne({ username: userId });
     }
-    
+
     if (!existingUser) {
       return res.status(400).send({ message: "User not found" });
     }
@@ -69,7 +69,12 @@ export const login = async (req: Request, res: Response) => {
       sameSite: "lax",
     });
 
-    return res.status(200).send({ existingUser });
+    return res.status(200).send({
+      username: existingUser.username,
+      picture: existingUser.picture,
+      email: existingUser.email,
+      savedCode: existingUser.savedCode
+    });
   } catch (error) {
     console.log(error)
     return res.status(500).send({ message: "Error log in!", error: error });

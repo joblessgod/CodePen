@@ -14,36 +14,47 @@ import { useDispatch } from "react-redux";
 import { updateFullCode } from "../redux/slices/compilerSlice";
 import { toast } from "sonner";
 import CompilerHeader from "../components/compilerHeader";
+import { useLoadCodeMutation } from "../redux/slices/api";
+import Loading from "../components/LoadingSceen/Loading";
 
 export default function Compiler() {
   const { urlId } = useParams();
+  const [loadExistingCode, { isLoading }] = useLoadCodeMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const loadCode = async () => {
     try {
-      const response = await axios.post("http://localhost:4000/compiler/load", {
-        urlId: urlId,
-      });
-      console.log(response.data);
-      dispatch(updateFullCode(response.data.fullCode));
-      toast.success("You code has been loaded.");
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error?.response?.status === 500) {
-          toast.error("Invalid Id! Loading default code!");
-          navigate("/compiler");
-        }
+      // const response = await axios.post("http://localhost:4000/compiler/load", {
+      //   urlId: urlId,
+      // });
+
+      if (urlId) {
+        const response = await loadExistingCode({ urlId }).unwrap();
+        dispatch(updateFullCode(response.fullCode));
+        toast.success("You code has been saved & loaded.");
       }
+    } catch (error) {
+      // if (axios.isAxiosError(error)) {
+      //   if (error?.response?.status === 500) {
+      //     toast.error("Invalid Id! Loading default code!");
+      //     navigate("/compiler");
+      //   }
+      // }
       handleError(error);
     }
   };
   useEffect(() => {
     if (urlId) {
       loadCode();
-      console.log("useEffect");
     }
   }, [urlId]);
+
+  if (isLoading) {
+    <div className="w-full h-[calc(100dvh-60px)]">
+      <Loading />;
+    </div>;
+  }
 
   return (
     <>
@@ -71,7 +82,6 @@ export default function Compiler() {
           </ResizablePanel>
         </ResizablePanelGroup>
       </div>
-
       <div className="h-[calc(100dvh-65px)] md:hidden">
         <ResizablePanelGroup direction="vertical" className="rounded-lg border">
           <ResizablePanel
