@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CodeEditor from "../components/CodeEditor";
 import HelperHeader from "../components/HelperHeader";
 import RenderCode from "../components/RenderCode";
@@ -9,7 +9,6 @@ import {
 } from "../components/ui/resizable";
 import { useEffect } from "react";
 import { handleError } from "../utils/handleError";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { updateFullCode } from "../redux/slices/compilerSlice";
 import { toast } from "sonner";
