@@ -20,7 +20,6 @@ export default function Compiler() {
   const { urlId } = useParams();
   const [loadExistingCode, { isLoading }] = useLoadCodeMutation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const loadCode = async () => {
     try {
