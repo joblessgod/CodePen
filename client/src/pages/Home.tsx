@@ -1,3 +1,4 @@
+import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import Header from "../components/Header";
 
 export default function Home() {
@@ -16,6 +17,10 @@ export default function Home() {
           with your friends!
         </p>
       </div>
+      {/* <Avatar>
+        <AvatarImage src={currentUser.picture} />
+        <AvatarFallbacky>CN</AvatarFallbacky>
+      </Avatar> */}
     </>
   );
 }

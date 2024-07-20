@@ -7,3 +7,8 @@ interface userInfoType {
     email: string,
     savedCode: Array<string>,
 }
+
+interface loginCredentialType {
+    userId: string,
+    password: string
+}

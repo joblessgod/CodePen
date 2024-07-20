@@ -26,9 +26,14 @@ import { toast } from "sonner";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/slices/store";
 import { useSaveCodeMutation } from "../redux/slices/api";
+import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
+import { AvatarImage } from "./ui/avatar";
 
 export default function CompilerHeader() {
   const navigate = useNavigate();
+  const isLoggedIn = useSelector(
+    (state: RootState) => state.appSlice.isLoggedIn
+  );
   const fullCode = useSelector(
     (state: RootState) => state.compilerSlice.fullCode
   );
@@ -65,6 +70,10 @@ export default function CompilerHeader() {
       setSavedFileName(false);
     }
   }, [urlId]);
+
+  const currentUser = useSelector(
+    (state: RootState) => state.appSlice.currentUser
+  );
   return (
     <>
       <nav className="w-full h-[60px] bg-gray-900 text-white p-3">
@@ -75,7 +84,9 @@ export default function CompilerHeader() {
             </Link>
 
             <div className="font-bold select-none">
-              <h1>Untitled </h1>
+              <h1>
+                {isLoggedIn ? <>{currentUser.username}</> : <>Untitled</>}{" "}
+              </h1>
               <small className="font-normal gap-1 max-md:text-[10px] items-center flex text-slate-400">
                 {savedFile ? (
                   <>
@@ -176,23 +187,24 @@ export default function CompilerHeader() {
                   </DropdownMenuContent>
                 </DropdownMenu>
 
-                <Link to="/signup">
-                  <Button
-                    className="p-5  bg-transparent md:bg-none"
-                    variant={"success"}
-                  >
-                    Sign Up
-                  </Button>
-                </Link>
+                {isLoggedIn ? (
+                  <div className="flex gap-2">
+                    <Button variant={"destructive"}>Logout</Button>
+                    <Avatar>
+                      <AvatarImage src={currentUser.picture} />
+                    </Avatar>
+                  </div>
+                ) : (
+                  <>
+                    <Link to="/signup">
+                      <Button variant={"success"}>Sign Up</Button>
+                    </Link>
 
-                <Link to="/login">
-                  <Button
-                    className="p-5 bg-transparent md:bg-none"
-                    variant={"secondary"}
-                  >
-                    Log In
-                  </Button>
-                </Link>
+                    <Link to="/login">
+                      <Button variant={"secondary"}>Log In</Button>
+                    </Link>
+                  </>
+                )}
               </ul>
             </div>
           </div>
@@ -255,12 +267,27 @@ export default function CompilerHeader() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Link to="/signup">
-              <Button variant={"success"}>Sign Up</Button>
-            </Link>
-            <Link to="/login">
-              <Button variant={"secondary"}>Log In</Button>
-            </Link>
+            {isLoggedIn ? (
+              <div className="flex gap-2">
+                <Button variant={"destructive"}>Logout</Button>
+                <Avatar className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
+                  <AvatarImage src={currentUser.picture} />
+                  <AvatarFallback className="capitalize">
+                    {currentUser.username?.slice(0, 2)}
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+            ) : (
+              <>
+                <Link to="/signup">
+                  <Button variant={"success"}>Sign Up</Button>
+                </Link>
+
+                <Link to="/login">
+                  <Button variant={"secondary"}>Log In</Button>
+                </Link>
+              </>
+            )}
           </ul>
         </div>
       </nav>

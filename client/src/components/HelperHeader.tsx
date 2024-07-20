@@ -3,6 +3,7 @@ import {
   Asterisk,
   CodeXml,
   Copy,
+  Info,
   Parentheses,
   Share2,
   Slash,
@@ -81,11 +82,11 @@ export default function HelperHeader() {
         </Tabs>
       </div>
 
-      <div className="__btn_container gap-1 flex">
+      <div className="__btn_container gap-2 flex items-center justify-center">
         {shareBtn && (
           <>
             <Dialog>
-              <DialogTrigger>
+              <DialogTrigger asChild>
                 <Button
                   variant={"secondary"}
                   className="gap-1 group flex justify-between items-center"
@@ -132,6 +133,7 @@ export default function HelperHeader() {
             </Dialog>
           </>
         )}
+        <Info />
       </div>
     </div>
   );

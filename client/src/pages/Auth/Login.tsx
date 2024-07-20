@@ -12,24 +12,40 @@ import {
   FormMessage,
 } from "../../components/ui/form";
 import { Input } from "../../components/ui/input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../redux/slices/api";
+import { handleError } from "../../utils/handleError";
+import { useDispatch } from "react-redux";
+import { updateCurrentUser, updateLoggedIn } from "../../redux/slices/appSlice";
 
 const formSchema = z.object({
   userId: z.string(),
   password: z.string(),
 });
-
 export default function Signup() {
+  const [login, { isloading }] = useLoginMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      userId: "",
-      password: "",
+      userId: "user",
+      password: "user1234",
     },
   });
 
-  function handleLogin(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function handleLogin(values: z.infer<typeof formSchema>) {
+    try {
+      console.log(values);
+      const response = await login(values).unwrap();
+      dispatch(updateCurrentUser(response));
+      dispatch(updateLoggedIn(true));
+      navigate("/");
+      console.log(response);
+    } catch (error) {
+      handleError(error);
+    }
   }
   return (
     <>
@@ -65,6 +81,8 @@ export default function Signup() {
                       <FormItem className="space-y-4 md:space-y-6">
                         <FormControl>
                           <Input
+                            required
+                            disabled={isloading}
                             placeholder="Username or Email"
                             {...field}
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white "
@@ -82,6 +100,8 @@ export default function Signup() {
                       <FormItem>
                         <FormControl>
                           <Input
+                            required
+                            disabled={isloading}
                             type="password"
                             placeholder="Password"
                             {...field}
@@ -94,10 +114,11 @@ export default function Signup() {
                     )}
                   />
                   <Button
-                    className="w-full text-white bg-primary-600"
+                    loading={isloading}
+                    className=" w-full text-white bg-primary-600"
                     type="submit"
                   >
-                    Submit
+                    Log in
                   </Button>
                 </form>
               </Form>
