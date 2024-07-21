@@ -89,7 +89,7 @@ export const login = async (req: Request, res: Response) => {
       username: existingUser.username,
       picture: existingUser.picture,
       email: existingUser.email,
-      savedCode: existingUser.savedCode
+      savedCode: existingUser.savedCodes
     });
   } catch (error) {
     console.log(error)
@@ -115,10 +115,10 @@ export const userDetails = async (req: AuthRequest, res: Response) => {
       res.status(404).send({ message: "Cannot find the user!" })
     }
     return res.status(200).send({
-      username: user.username,
-      picture: user.picture,
-      email: user.email,
-      savedCode: user.savedCode
+      username: user?.username,
+      picture: user?.picture,
+      email: user?.email,
+      savedCode: user?.savedCodes
     })
   } catch (error) {
     return res.status(500).send({ message: "Cannt fetch use details" })

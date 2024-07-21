@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 interface IUserSchema {
     username: string,
     email: string,
     password: string,
     picture: string,
-    savedCode: Array<{ _id: string }>
+    savedCode: Array<mongoose.Types.ObjectId>
 }
 
 const UserSchema = new mongoose.Schema(
@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema(
             default: "https://static.vecteezy.com/system/resources/previews/045/944/199/large_2x/male-default-placeholder-avatar-profile-gray-picture-isolated-on-background-man-silhouette-picture-for-user-profile-in-social-media-forum-chat-greyscale-illustration-vector.jpg"
         },
         savedCodes: [
-            { type: mongoose.Schema.Types.ObjectId }
+            { type: mongoose.Schema.Types.ObjectId, ref: "Code" }
         ]
     },
     { timestamps: true }

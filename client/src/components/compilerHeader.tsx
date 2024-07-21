@@ -23,14 +23,17 @@ import { useEffect, useState } from "react";
 import { MdViewSidebar } from "react-icons/md";
 import { handleError } from "../utils/handleError";
 import { toast } from "sonner";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/slices/store";
-import { useSaveCodeMutation } from "../redux/slices/api";
+import { useLogoutMutation, useSaveCodeMutation } from "../redux/slices/api";
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import { AvatarImage } from "./ui/avatar";
+import { updateCurrentUser, updateLoggedIn } from "../redux/slices/appSlice";
 
 export default function CompilerHeader() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const isLoggedIn = useSelector(
     (state: RootState) => state.appSlice.isLoggedIn
   );
@@ -55,6 +58,16 @@ export default function CompilerHeader() {
     }
   };
 
+  const [logout] = useLogoutMutation();
+  async function handleLogout() {
+    try {
+      await logout().unwrap();
+      dispatch(updateCurrentUser({}));
+      dispatch(updateLoggedIn(false));
+    } catch (error) {
+      handleError(error);
+    }
+  }
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   function toggleSideMenu() {
@@ -269,7 +282,13 @@ export default function CompilerHeader() {
 
             {isLoggedIn ? (
               <div className="flex gap-2">
-                <Button variant={"destructive"}>Logout</Button>
+                <Button
+                  loading={isLoading}
+                  onClick={handleLogout}
+                  variant={"destructive"}
+                >
+                  Logout
+                </Button>
                 <Avatar className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
                   <AvatarImage src={currentUser.picture} />
                   <AvatarFallback className="capitalize">
