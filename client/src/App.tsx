@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { useGetUserDetailsQuery } from "./redux/slices/api";
 import { useDispatch } from "react-redux";
 import { updateCurrentUser, updateLoggedIn } from "./redux/slices/appSlice";
+import AllRoutes from "./AllRoutes";
 
 export default function App() {
   const { data, error } = useGetUserDetailsQuery();
@@ -31,13 +32,7 @@ export default function App() {
       <Toaster richColors position="bottom-right" theme="system" />
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         {/* <Header /> */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/pen/:urlId?" element={<Compiler />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AllRoutes/>
       </ThemeProvider>
     </>
   );
