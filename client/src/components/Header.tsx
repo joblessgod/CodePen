@@ -52,7 +52,7 @@ export default function Header() {
           <div className="flex gap-2">
             <ul className="flex gap-2">
               <Link to="/pen">
-                <Button variant={"secondary"}>Start Coding</Button>
+                <Button variant={"link"}>Start Coding</Button>
               </Link>
               <div className="md:hidden flex gap-1 items-center">
                 <Tally4 className="rotate-[90deg] " onClick={toggleSideMenu} />
@@ -96,8 +96,16 @@ export default function Header() {
                 </div>
               </div>
             </ul>
+            <li className="flex">
+              <Link to={"/all-codes"}>
+                <Button variant={"secondary"}>All Codes</Button>
+              </Link>
+            </li>
             {isLoggedIn ? (
               <div className="flex gap-2">
+                <Link to={"/my-codes"}>
+                  <Button variant={"blue"}>My Codes</Button>
+                </Link>
                 <Button
                   loading={isLoading}
                   onClick={handleLogout}

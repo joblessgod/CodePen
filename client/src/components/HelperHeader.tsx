@@ -37,35 +37,61 @@ export default function HelperHeader() {
   );
 
   const handleDownloadCode = () => {
-    const htmlCode = new Blob([fullCode.html], { type: "text/html" });
-    const cssCode = new Blob([fullCode.css], { type: "text/css" });
-    const JavascriptCode = new Blob([fullCode.javascript], {
-      type: "text/javascript",
-    });
+    if (
+      fullCode.html == "" &&
+      fullCode.css == "" &&
+      fullCode.javascript == ""
+    ) {
+      toast.error("Code is Empty! Please write something!");
+    } else {
+      const htmlCode = new Blob([fullCode.html], { type: "text/html" });
+      const cssCode = new Blob([fullCode.css], { type: "text/css" });
+      const JavascriptCode = new Blob([fullCode.javascript], {
+        type: "text/javascript",
+      });
+      // const allCodeZipped = new Blob([fullCode], {
+      //   type: "text/zip",
+      // });
 
-    const htmlLink = document.createElement("a");
-    const cssLink = document.createElement("a");
-    const javascriptLink = document.createElement("a");
+      const htmlLink = document.createElement("a");
+      const cssLink = document.createElement("a");
+      const javascriptLink = document.createElement("a");
+      // const allCodeZippedLink = document.createElement("a");
 
-    htmlLink.href = URL.createObjectURL(htmlCode);
-    htmlLink.download = "index.html";
-    document.body.appendChild(htmlLink);
+      htmlLink.href = URL.createObjectURL(htmlCode);
+      htmlLink.download = "index.html";
+      document.body.appendChild(htmlLink);
 
-    cssLink.href = URL.createObjectURL(cssCode);
-    cssLink.download = "style.css";
-    document.body.appendChild(cssLink);
+      cssLink.href = URL.createObjectURL(cssCode);
+      cssLink.download = "style.css";
+      document.body.appendChild(cssLink);
 
-    javascriptLink.href = URL.createObjectURL(JavascriptCode);
-    javascriptLink.download = "script.js";
-    document.body.appendChild(javascriptLink);
+      javascriptLink.href = URL.createObjectURL(JavascriptCode);
+      javascriptLink.download = "script.js";
+      document.body.appendChild(javascriptLink);
 
-    htmlLink.click();
-    cssLink.click();
-    javascriptLink.click();
+      // allCodeZippedLink.href = URL.createObjectURL(allCodeZipped);
+      // allCodeZippedLink.download = "allZipCode.zip";
+      // document.body.appendChild(allCodeZippedLink);
 
-    document.body.removeChild(htmlLink);
-    document.body.removeChild(cssLink);
-    document.body.removeChild(javascriptLink);
+      if (fullCode.html !== "") {
+        htmlLink.click();
+      }
+      if (fullCode.css !== "") {
+        cssLink.click();
+      }
+      if (fullCode.javascript !== "") {
+        javascriptLink.click();
+      }
+      // allCodeZippedLink.click();
+
+      document.body.removeChild(htmlLink);
+      document.body.removeChild(cssLink);
+      document.body.removeChild(javascriptLink);
+      // document.body.removeChild(allCodeZippedLink);
+
+      toast.success("Code Downloaded Succesfully!");
+    }
   };
 
   const { urlId } = useParams();
