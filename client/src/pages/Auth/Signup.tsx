@@ -12,7 +12,12 @@ import {
   FormMessage,
 } from "../../components/ui/form";
 import { Input } from "../../components/ui/input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { handleError } from "../../utils/handleError";
+import { useSignupMutation } from "../../redux/slices/api";
+import { toast } from "sonner";
+import { updateCurrentUser, updateLoggedIn } from "../../redux/slices/appSlice";
+import { useDispatch } from "react-redux";
 
 const formSchema = z.object({
   username: z.string().min(3),
@@ -21,6 +26,10 @@ const formSchema = z.object({
 });
 
 export default function Login() {
+  const [signup, { isLoading }] = useSignupMutation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,8 +39,17 @@ export default function Login() {
     },
   });
 
-  function handleSignup(values: z.infer<typeof formSchema>) {
+  async function handleSignup(values: z.infer<typeof formSchema>) {
     console.log(values);
+    try {
+      const response = await signup(values).unwrap();
+      dispatch(updateCurrentUser(response));
+      dispatch(updateLoggedIn(true));
+      navigate("/");
+      toast.success("Successfully created an account!");
+    } catch (error) {
+      handleError(error);
+    }
   }
   return (
     <>
@@ -67,6 +85,7 @@ export default function Login() {
                       <FormItem className="space-y-4 md:space-y-6">
                         <FormControl>
                           <Input
+                            disabled={isLoading}
                             placeholder="Username"
                             {...field}
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white "
@@ -84,6 +103,7 @@ export default function Login() {
                       <FormItem className="space-y-4 md:space-y-6">
                         <FormControl>
                           <Input
+                            disabled={isLoading}
                             placeholder="Email"
                             {...field}
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white "
@@ -101,6 +121,7 @@ export default function Login() {
                       <FormItem>
                         <FormControl>
                           <Input
+                            disabled={isLoading}
                             type="password"
                             placeholder="Password"
                             {...field}
@@ -113,6 +134,8 @@ export default function Login() {
                     )}
                   />
                   <Button
+                    loading={isLoading}
+                    disabled={isLoading}
                     className="w-full text-white bg-primary-600"
                     type="submit"
                   >

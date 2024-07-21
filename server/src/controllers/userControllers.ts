@@ -6,7 +6,7 @@ import { AuthRequest } from "../middleware/verifyToken";
 
 export const signup = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
-  const usernameRegex = /^[a-zA-Z0.9]+$/
+  const usernameRegex = /^[a-zA-Z0-9]+$/
   try {
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
@@ -21,6 +21,21 @@ export const signup = async (req: Request, res: Response) => {
       email: email,
       password: hashedPassword,
       username: username,
+    });
+    const token = jwt.sign(
+      {
+        _id: user._id,
+        email: user.email,
+      },
+      process.env.JWT_KEY!, {
+      expiresIn: "1d"
+    })
+
+    res.cookie("token", token, {
+      path: "/",
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      httpOnly: true,
+      sameSite: "lax",
     });
     return res.status(201).send({ user });
   } catch (error) {
@@ -60,8 +75,7 @@ export const login = async (req: Request, res: Response) => {
       },
       process.env.JWT_KEY!, {
       expiresIn: "1d"
-    }
-    )
+    })
 
     res.cookie("token", token, {
       path: "/",

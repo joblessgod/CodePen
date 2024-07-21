@@ -115,6 +115,7 @@ export default function Signup() {
                   />
                   <Button
                     loading={isloading}
+                    disabled={isloading}
                     className=" w-full text-white bg-primary-600"
                     type="submit"
                   >

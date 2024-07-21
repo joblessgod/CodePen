@@ -12,3 +12,9 @@ interface loginCredentialType {
     userId: string,
     password: string
 }
+
+interface signupCredentialType {
+    username: string,
+    email: string,
+    password: string
+}
