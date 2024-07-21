@@ -3,6 +3,7 @@ import {
   Asterisk,
   CodeXml,
   Copy,
+  Download,
   Info,
   Parentheses,
   Share2,
@@ -31,6 +32,41 @@ import { toast } from "sonner";
 
 export default function HelperHeader() {
   const [shareBtn, setShareBtn] = useState<boolean>(false);
+  const fullCode = useSelector(
+    (state: RootState) => state.compilerSlice.fullCode
+  );
+
+  const handleDownloadCode = () => {
+    const htmlCode = new Blob([fullCode.html], { type: "text/html" });
+    const cssCode = new Blob([fullCode.css], { type: "text/css" });
+    const JavascriptCode = new Blob([fullCode.javascript], {
+      type: "text/javascript",
+    });
+
+    const htmlLink = document.createElement("a");
+    const cssLink = document.createElement("a");
+    const javascriptLink = document.createElement("a");
+
+    htmlLink.href = URL.createObjectURL(htmlCode);
+    htmlLink.download = "index.html";
+    document.body.appendChild(htmlLink);
+
+    cssLink.href = URL.createObjectURL(cssCode);
+    cssLink.download = "style.css";
+    document.body.appendChild(cssLink);
+
+    javascriptLink.href = URL.createObjectURL(JavascriptCode);
+    javascriptLink.download = "script.js";
+    document.body.appendChild(javascriptLink);
+
+    htmlLink.click();
+    cssLink.click();
+    javascriptLink.click();
+
+    document.body.removeChild(htmlLink);
+    document.body.removeChild(cssLink);
+    document.body.removeChild(javascriptLink);
+  };
 
   const { urlId } = useParams();
   useEffect(() => {
@@ -49,6 +85,7 @@ export default function HelperHeader() {
   return (
     <div className="__helper_header h-[50px] bg-black text-white p-2 items-center justify-between flex">
       <div className="__tab_switcher flex gap-1 items-center justify-between">
+        {/* Html, Css & Java Script Tabs */}
         <Tabs
           defaultValue={currentLanguage}
           onValueChange={(value) =>
@@ -81,7 +118,7 @@ export default function HelperHeader() {
           </TabsList>
         </Tabs>
       </div>
-
+      {/* Share Button */}
       <div className="__btn_container gap-2 flex items-center justify-center">
         {shareBtn && (
           <>
@@ -133,7 +170,18 @@ export default function HelperHeader() {
             </Dialog>
           </>
         )}
-        <Info />
+        {/* Download the Code */}
+        <Button
+          onClick={handleDownloadCode}
+          variant={"secondary"}
+          size={"icon"}
+        >
+          <Download />
+        </Button>
+        {/* Info Button for newcomer */}
+        <Button variant={"secondary"} size={"icon"}>
+          <Info />
+        </Button>
       </div>
     </div>
   );

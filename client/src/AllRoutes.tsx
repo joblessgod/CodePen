@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Loading from "./components/LoadingSceen/Loading";
+import Header from "./components/Header";
 
 const Home = lazy(() => import("./pages/Home"));
 const Compiler = lazy(() => import("./pages/Compiler"));
@@ -13,6 +14,7 @@ export default function AllRoutes() {
     <Suspense
       fallback={
         <div>
+          <Header />
           <Loading />
         </div>
       }
