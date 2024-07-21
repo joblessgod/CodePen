@@ -53,7 +53,7 @@ export const login = async (req: Request, res: Response) => {
       return res.status(400).send({ message: "wrong password" });
     }
 
-    const jwtToken = jwt.sign(
+    const token = jwt.sign(
       {
         _id: existingUser._id,
         email: existingUser.email,
@@ -61,14 +61,15 @@ export const login = async (req: Request, res: Response) => {
       process.env.JWT_KEY!, {
       expiresIn: "1d"
     }
-    );
+    )
 
-    res.cookie("token", {
+    res.cookie("token", token, {
       path: "/",
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
       httpOnly: true,
       sameSite: "lax",
     });
+
 
     return res.status(200).send({
       username: existingUser.username,
@@ -90,12 +91,21 @@ export const logout = async (req: Request, res: Response) => {
     console.log(error)
     return res.status(500).send({ message: "Error logging out!", error });
   }
-  
+
 };
 export const userDetails = async (req: AuthRequest, res: Response) => {
   const userId = req._id
   try {
-    return res.status(200).send({ userId })
+    const user = await User.findById(userId)
+    if (!user) {
+      res.status(404).send({ message: "Cannot find the user!" })
+    }
+    return res.status(200).send({
+      username: user.username,
+      picture: user.picture,
+      email: user.email,
+      savedCode: user.savedCode
+    })
   } catch (error) {
     return res.status(500).send({ message: "Cannt fetch use details" })
 
