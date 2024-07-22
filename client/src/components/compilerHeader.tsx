@@ -69,8 +69,8 @@ export default function CompilerHeader() {
     }
   }
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [titleName, setTitleName] = useState("Untitled");
-  const [editTitle, setEditTitle] = useState(true);
+  // const [titleName, setTitleName] = useState("Untitled");
+  // const [editTitle, setEditTitle] = useState(true);
 
   function toggleSideMenu() {
     console.log("Side Menu open");
@@ -103,16 +103,12 @@ export default function CompilerHeader() {
                       setEditTitle(true);
                       console.log(titleName);
                     }}
-                    onChange={(e) => {
-                      setTitleName(e.target.value);
-                    }}
                   >
                     <Input
-                      disabled={editTitle}
-                      value={titleName}
-                      className="border-none -translate-x-3 pr-0 h-full w-[32%] focus-visible:ring-0 focus-visible:ring-none"
+                      defaultValue={"Untitled"}
+                      className="border-none -translate-x-3 pr-0 h-full w-[50%] text-gray-500 focus:text-white focus-visible:underline focus-visible:ring-0 focus-visible:ring-none"
                     ></Input>
-                    {setEditTitle ? (
+                    {/* {setEditTitle ? (
                       <Pencil
                         className="hover:cursor-pointer"
                         size={16}
@@ -120,10 +116,13 @@ export default function CompilerHeader() {
                           setEditTitle(false);
                           console.log(titleName);
                         }}
+                        onChange={(e) => {
+                          setTitleName(e.target.value);
+                        }}
                       />
                     ) : (
                       <> </>
-                    )}
+                    )} */}
                   </form>
                 </>
               </div>
