@@ -82,7 +82,7 @@ export default function Signup() {
                         <FormControl>
                           <Input
                             required
-                            disabled={isloading}
+                            disabled={isLoading}
                             placeholder="Username or Email"
                             {...field}
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white "
@@ -101,7 +101,7 @@ export default function Signup() {
                         <FormControl>
                           <Input
                             required
-                            disabled={isloading}
+                            disabled={isLoading}
                             type="password"
                             placeholder="Password"
                             {...field}
@@ -114,8 +114,8 @@ export default function Signup() {
                     )}
                   />
                   <Button
-                    loading={isloading}
-                    disabled={isloading}
+                    loading={isLoading}
+                    disabled={isLoading}
                     className=" w-full text-white bg-primary-600"
                     type="submit"
                   >
