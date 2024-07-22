@@ -125,3 +125,6 @@ export const userDetails = async (req: AuthRequest, res: Response) => {
 
   }
 }
+export const backend = (req: Request, res: Response) => {
+  return res.send({ message: "Backend is perfectly deplyed!" })
+}
