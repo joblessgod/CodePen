@@ -18,7 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { MdViewSidebar } from "react-icons/md";
 import { handleError } from "../utils/handleError";
@@ -77,8 +77,6 @@ export default function CompilerHeader() {
     setIsMenuOpen(!isMenuOpen);
   }
 
-  const { urlId } = useParams();
-
   const currentUser = useSelector(
     (state: RootState) => state.appSlice.currentUser
   );
@@ -100,13 +98,13 @@ export default function CompilerHeader() {
                   {/* <div>Untitled</div> */}
                   <form
                     className="flex items-center"
-                    onSubmit={() => {
+                    onSubmit={(e) => {
                       e.preventDefault();
                       setEditTitle(true);
                       console.log(titleName);
                     }}
-                    onChange={(e) => {
-                      setTitleName(e.target.value);
+                    onChange={() => {
+                      setTitleName();
                     }}
                   >
                     <Input
