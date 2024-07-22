@@ -1,6 +1,6 @@
 import { ThemeProvider } from "./components/theme-provider";
 import { Toaster } from "sonner";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useGetUserDetailsQuery } from "./redux/slices/api";
 import { useDispatch } from "react-redux";
 import { updateCurrentUser, updateLoggedIn } from "./redux/slices/appSlice";

@@ -50,7 +50,7 @@ export default function HelperHeader() {
         type: "text/javascript",
       });
       // const allCodeZipped = new Blob([fullCode], {
-      //   type: "text/zip",
+      //   type: "text/zip",  
       // });
 
       const htmlLink = document.createElement("a");

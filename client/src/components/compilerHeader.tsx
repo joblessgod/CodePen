@@ -1,7 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Cog,
-  Copy,
   LoaderCircle,
   PanelsTopLeft,
   Pencil,
@@ -46,8 +45,6 @@ export default function CompilerHeader() {
   const [saveCode, { isLoading }] = useSaveCodeMutation();
 
   const [position, setPosition] = useState("bottom");
-  const [savedFile, setSavedFileName] = useState(false);
-
   const handleSaveCode = async () => {
     try {
       // const response = await axios.post("http://localhost:4000/compiler/save", {
@@ -81,13 +78,6 @@ export default function CompilerHeader() {
   }
 
   const { urlId } = useParams();
-  useEffect(() => {
-    if (urlId) {
-      setSavedFileName(true);
-    } else {
-      setSavedFileName(false);
-    }
-  }, [urlId]);
 
   const currentUser = useSelector(
     (state: RootState) => state.appSlice.currentUser
@@ -110,7 +100,7 @@ export default function CompilerHeader() {
                   {/* <div>Untitled</div> */}
                   <form
                     className="flex items-center"
-                    onSubmit={(e) => {
+                    onSubmit={() => {
                       e.preventDefault();
                       setEditTitle(true);
                       console.log(titleName);
@@ -128,7 +118,7 @@ export default function CompilerHeader() {
                       <Pencil
                         className="hover:cursor-pointer"
                         size={16}
-                        onClick={(e) => {
+                        onClick={() => {
                           setEditTitle(false);
                           console.log(titleName);
                         }}
