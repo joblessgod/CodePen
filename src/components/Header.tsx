@@ -20,7 +20,6 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu";
-import { DropdownMenuItemIndicator } from "@radix-ui/react-dropdown-menu";
 
 export default function Header() {
   // logout section
@@ -165,13 +164,13 @@ export default function Header() {
                       <DropdownMenuShortcut>soon</DropdownMenuShortcut>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItemIndicator
+                    <DropdownMenuItem
                       onClick={handleLogout}
                       className="hover:cursor-pointer"
                     >
                       Logout
                       {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
-                    </DropdownMenuItemIndicator>
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>

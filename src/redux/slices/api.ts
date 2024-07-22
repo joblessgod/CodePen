@@ -1,9 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { CompilerSliceStateType } from "./compilerSlice"
 
+const backendUrl = "https://codepen-backend-ozz5.onrender.com" || "https://code-pen-backend.vercel.app"
+// const backendUrl =  "http://localhost:5000"
+
 export const api = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://code-pen-backend.vercel.app",
+        baseUrl: backendUrl,
         credentials: "include"
     }),
     endpoints: (builder) => ({
