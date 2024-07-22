@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import Loading from "./components/LoadingSceen/Loading";
+import Loading from "./components/Loading";
 import Header from "./components/Header";
 
 const Home = lazy(() => import("./pages/Home"));
@@ -8,8 +8,7 @@ const Compiler = lazy(() => import("./pages/Compiler"));
 const Signup = lazy(() => import("./pages/Auth/Signup"));
 const Login = lazy(() => import("./pages/Auth/Login"));
 const NotFound = lazy(() => import("./pages/NotFound"));
-const AllCodes = lazy(() => import("./pages/Codes/MyCodes"));
-const MyCodes = lazy(() => import("./pages/Codes/MyCodes"));
+
 
 export default function AllRoutes() {
   return (
@@ -27,8 +26,7 @@ export default function AllRoutes() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/all-codes" element={<AllCodes />} />
-        <Route path="/my-codes" element={<MyCodes />} />
+
       </Routes>
     </Suspense>
   );

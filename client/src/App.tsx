@@ -1,6 +1,6 @@
 import { ThemeProvider } from "./components/theme-provider";
 import { Toaster } from "sonner";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGetUserDetailsQuery } from "./redux/slices/api";
 import { useDispatch } from "react-redux";
 import { updateCurrentUser, updateLoggedIn } from "./redux/slices/appSlice";
@@ -9,6 +9,8 @@ import AllRoutes from "./AllRoutes";
 export default function App() {
   const { data, error } = useGetUserDetailsQuery();
   const dispatch = useDispatch();
+
+
   useEffect(() => {
     if (data) {
       dispatch(updateCurrentUser(data));
@@ -17,8 +19,6 @@ export default function App() {
       dispatch(updateCurrentUser({}));
       dispatch(updateLoggedIn(false));
     }
-    console.log(data);
-    console.log(error);
   }, [data, error]);
   return (
     <>

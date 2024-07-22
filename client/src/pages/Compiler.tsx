@@ -14,7 +14,7 @@ import { updateFullCode } from "../redux/slices/compilerSlice";
 import { toast } from "sonner";
 import CompilerHeader from "../components/compilerHeader";
 import { useLoadCodeMutation } from "../redux/slices/api";
-import Loading from "../components/LoadingSceen/Loading";
+import Loading from "../components/Loading";
 
 export default function Compiler() {
   const { urlId } = useParams();

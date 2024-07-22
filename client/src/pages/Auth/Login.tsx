@@ -30,8 +30,8 @@ export default function Signup() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      userId: "user",
-      password: "user1234",
+      userId: "JobLessGod",
+      password: "joblessgod1234",
     },
   });
 
@@ -42,7 +42,6 @@ export default function Signup() {
       dispatch(updateCurrentUser(response));
       dispatch(updateLoggedIn(true));
       navigate("/");
-      console.log(response);
     } catch (error) {
       handleError(error);
     }

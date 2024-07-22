@@ -4,6 +4,7 @@ import {
   Copy,
   LoaderCircle,
   PanelsTopLeft,
+  Pencil,
   Save,
   Tally4,
   X,
@@ -29,6 +30,7 @@ import { useLogoutMutation, useSaveCodeMutation } from "../redux/slices/api";
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import { AvatarImage } from "./ui/avatar";
 import { updateCurrentUser, updateLoggedIn } from "../redux/slices/appSlice";
+import { Input } from "./ui/input";
 
 export default function CompilerHeader() {
   const navigate = useNavigate();
@@ -59,6 +61,7 @@ export default function CompilerHeader() {
   };
 
   const [logout] = useLogoutMutation();
+
   async function handleLogout() {
     try {
       await logout().unwrap();
@@ -69,6 +72,8 @@ export default function CompilerHeader() {
     }
   }
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [titleName, setTitleName] = useState("Untitled");
+  const [editTitle, setEditTitle] = useState(true);
 
   function toggleSideMenu() {
     console.log("Side Menu open");
@@ -96,25 +101,49 @@ export default function CompilerHeader() {
               <img src="/codepen_logo.png" className="h-10 w-10" />
             </Link>
 
-            <div className="font-bold select-none">
-              <h1>
-                {isLoggedIn ? <>{currentUser.username}</> : <>Untitled</>}{" "}
-              </h1>
+            <div className="font-bold">
+              <div className="flex gap-2 items-center">
+                <>
+                  {/* {editTitle} <Pencil size={16} onClick={()=> {
+                    setEditTitle(false);
+                  }}/> */}
+                  {/* <div>Untitled</div> */}
+                  <form
+                    className="flex items-center"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      setEditTitle(true);
+                      console.log(titleName);
+                    }}
+                    onChange={(e) => {
+                      setTitleName(e.target.value);
+                    }}
+                  >
+                    <Input
+                      disabled={editTitle}
+                      value={titleName}
+                      className="border-none -translate-x-3 pr-0 h-full w-[32%] focus-visible:ring-0 focus-visible:ring-none"
+                    ></Input>
+                    {setEditTitle ? (
+                      <Pencil
+                        className="hover:cursor-pointer"
+                        size={16}
+                        onClick={(e) => {
+                          setEditTitle(false);
+                          console.log(titleName);
+                        }}
+                      />
+                    ) : (
+                      <> </>
+                    )}
+                  </form>
+                </>
+              </div>
               <small className="font-normal gap-1 max-md:text-[10px] items-center flex text-slate-400">
-                {savedFile ? (
-                  <>
-                    Id: {urlId}
-                    <Copy
-                      onClick={() => {
-                        window.navigator.clipboard.writeText(`${urlId}`);
-                        toast.success("Copied to clipboard");
-                      }}
-                      size={12}
-                      className="hover:text-white hover:cursor-pointer"
-                    />
-                  </>
+                {isLoggedIn ? (
+                  <>{currentUser.username}</>
                 ) : (
-                  "Captain Anonymous"
+                  <>Captain Anonymous</>
                 )}
               </small>
             </div>
@@ -283,7 +312,7 @@ export default function CompilerHeader() {
             {isLoggedIn ? (
               <div className="flex gap-2">
                 <Button
-                  loading={isLoading}
+                  disabled={isLoading}
                   onClick={handleLogout}
                   variant={"destructive"}
                 >

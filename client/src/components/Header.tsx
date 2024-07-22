@@ -9,6 +9,7 @@ import { useLogoutMutation } from "../redux/slices/api";
 import { updateCurrentUser, updateLoggedIn } from "../redux/slices/appSlice";
 import { Avatar } from "./ui/avatar";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import "./Css/StartCoding.css";
 
 export default function Header() {
   // logout section
@@ -52,7 +53,9 @@ export default function Header() {
           <div className="flex gap-2">
             <ul className="flex gap-2">
               <Link to="/pen">
-                <Button variant={"link"}>Start Coding</Button>
+                <a class="codepen-button text-right ">
+                  <span className="p-[4px]  font-medium ">Start Coding</span>
+                </a>
               </Link>
               <div className="md:hidden flex gap-1 items-center">
                 <Tally4 className="rotate-[90deg] " onClick={toggleSideMenu} />
@@ -96,16 +99,8 @@ export default function Header() {
                 </div>
               </div>
             </ul>
-            <li className="flex">
-              <Link to={"/all-codes"}>
-                <Button variant={"secondary"}>All Codes</Button>
-              </Link>
-            </li>
             {isLoggedIn ? (
               <div className="flex gap-2">
-                <Link to={"/my-codes"}>
-                  <Button variant={"blue"}>My Codes</Button>
-                </Link>
                 <Button
                   loading={isLoading}
                   onClick={handleLogout}
