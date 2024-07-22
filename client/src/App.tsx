@@ -1,5 +1,3 @@
-import { Route, Routes } from "react-router-dom";
-// import Header from "./components/Header";
 import { ThemeProvider } from "./components/theme-provider";
 import { Toaster } from "sonner";
 import { useEffect } from "react";
