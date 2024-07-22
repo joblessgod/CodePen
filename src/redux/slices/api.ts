@@ -3,7 +3,7 @@ import { CompilerSliceStateType } from "./compilerSlice"
 
 export const api = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:4000",
+        baseUrl: "https://code-pen-backend.vercel.app",
         credentials: "include"
     }),
     endpoints: (builder) => ({
