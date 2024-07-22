@@ -23,7 +23,7 @@ const formSchema = z.object({
   password: z.string(),
 });
 export default function Signup() {
-  const [login, { isloading }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
