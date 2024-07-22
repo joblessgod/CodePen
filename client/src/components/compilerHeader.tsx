@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Cog,
   LoaderCircle,
@@ -103,8 +103,8 @@ export default function CompilerHeader() {
                       setEditTitle(true);
                       console.log(titleName);
                     }}
-                    onChange={() => {
-                      setTitleName();
+                    onChange={(e) => {
+                      setTitleName(e.target.value);
                     }}
                   >
                     <Input
