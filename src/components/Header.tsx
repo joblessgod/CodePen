@@ -10,6 +10,20 @@ import { updateCurrentUser, updateLoggedIn } from "../redux/slices/appSlice";
 import { Avatar } from "./ui/avatar";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import "./Css/StartCoding.css";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Header() {
   // logout section
@@ -78,12 +92,14 @@ export default function Header() {
                       >
                         Logout
                       </Button>
-                      <Avatar>
-                        <AvatarImage src={currentUser.picture} />
-                        <AvatarFallback className="capitalize">
-                          {currentUser.username?.slice(0, 2)}
-                        </AvatarFallback>
-                      </Avatar>
+                      <Link to={"/profile/"}>
+                        <Avatar>
+                          <AvatarImage src={currentUser.picture} />
+                          <AvatarFallback className="capitalize">
+                            {currentUser.username?.slice(0, 2)}
+                          </AvatarFallback>
+                        </Avatar>
+                      </Link>
                     </div>
                   ) : (
                     <>
@@ -101,19 +117,67 @@ export default function Header() {
             </ul>
             {isLoggedIn ? (
               <div className="flex gap-2">
-                <Button
-                  loading={isLoading}
-                  onClick={handleLogout}
-                  variant={"destructive"}
-                >
-                  Logout
-                </Button>
-                <Avatar>
-                  <AvatarImage src={currentUser.picture} />
-                  <AvatarFallback className="capitalize">
-                    {currentUser.username?.slice(0, 2)}
-                  </AvatarFallback>
-                </Avatar>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Avatar>
+                      <AvatarImage
+                        className="hover:cursor-pointer"
+                        src={currentUser.picture}
+                      />
+                      <AvatarFallback className="capitalize hover:cursor-pointer">
+                        {currentUser.username?.slice(0, 2)}
+                      </AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel>
+                      {currentUser.username}
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      <Link to={"/profile"}>
+                        <DropdownMenuItem className="hover:cursor-pointer">
+                          Profile
+                          {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
+                        </DropdownMenuItem>
+                      </Link>
+                      <Link to={"/profile/settings"}>
+                        <DropdownMenuItem className="hover:cursor-pointer">
+                          Settings
+                          {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
+                        </DropdownMenuItem>
+                      </Link>
+                      <DropdownMenuItem
+                        disabled
+                        className="hover:cursor-pointer"
+                      >
+                        Keyboard shortcuts
+                        <DropdownMenuShortcut>soon</DropdownMenuShortcut>
+                        {/* <DropdownMenuShortcut>⌘K</DropdownMenuShortcut> */}
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="hover:cursor-pointer">
+                      GitHub
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="hover:cursor-pointer">
+                      Support
+                    </DropdownMenuItem>
+                    <DropdownMenuItem disabled>
+                      API
+                      <DropdownMenuShortcut>soon</DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      loading={isLoading}
+                      onClick={handleLogout}
+                      className="hover:cursor-pointer"
+                    >
+                      Logout
+                      {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             ) : (
               <>
