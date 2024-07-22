@@ -53,8 +53,8 @@ export default function Header() {
           <div className="flex gap-2">
             <ul className="flex gap-2">
               <Link to="/pen">
-                <a class="codepen-button text-right ">
-                  <span className="p-[4px]  font-medium ">Start Coding</span>
+                <a className="codepen-button text-right ">
+                  <span className="p-[4px] font-medium ">Start Coding</span>
                 </a>
               </Link>
               <div className="md:hidden flex gap-1 items-center">
