@@ -3,7 +3,6 @@ import {
   Cog,
   LoaderCircle,
   PanelsTopLeft,
-  Pencil,
   Save,
   Tally4,
   X,
@@ -100,8 +99,8 @@ export default function CompilerHeader() {
                     className="flex items-center"
                     onSubmit={(e) => {
                       e.preventDefault();
-                      setEditTitle(true);
-                      console.log(titleName);
+                      // setEditTitle(true);
+                      // console.log(titleName);
                     }}
                   >
                     <Input
