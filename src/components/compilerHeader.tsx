@@ -1,23 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
-import {
-  Cog,
-  LoaderCircle,
-  PanelsTopLeft,
-  Save,
-  Tally4,
-  X,
-} from "lucide-react";
+import { LoaderCircle, PanelsTopLeft, Save, Tally4, X } from "lucide-react";
 import { Button } from "../components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 
 import { MdViewSidebar } from "react-icons/md";
 import { handleError } from "../utils/handleError";
@@ -29,6 +26,7 @@ import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import { AvatarImage } from "./ui/avatar";
 import { updateCurrentUser, updateLoggedIn } from "../redux/slices/appSlice";
 import { Input } from "./ui/input";
+import { Badge } from "./ui/badge";
 
 export default function CompilerHeader() {
   const navigate = useNavigate();
@@ -63,6 +61,7 @@ export default function CompilerHeader() {
       await logout().unwrap();
       dispatch(updateCurrentUser({}));
       dispatch(updateLoggedIn(false));
+      navigate("/login");
     } catch (error) {
       handleError(error);
     }
@@ -70,6 +69,16 @@ export default function CompilerHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // const [titleName, setTitleName] = useState("Untitled");
   // const [editTitle, setEditTitle] = useState(true);
+
+  const [isOwner, setIsOwner] = useState(false);
+
+  useEffect(() => {
+    if (currentUser.username == "JobLessGod") {
+      setIsOwner(true);
+    } else {
+      setIsOwner(false);
+    }
+  }, []);
 
   function toggleSideMenu() {
     console.log("Side Menu open");
@@ -170,14 +179,6 @@ export default function CompilerHeader() {
               />
               {/* flex grow property */}
               <ul className="md:hidden md:justify-center text-center  md:gap-1">
-                <Button
-                  variant={"secondary"}
-                  className="bg-transparent md:bg-none flex gap-1 items-center justify-center"
-                >
-                  <Cog size={18} />
-                  Settings
-                </Button>
-
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button
@@ -258,14 +259,6 @@ export default function CompilerHeader() {
               )}
             </Button>
 
-            <Button
-              variant={"secondary"}
-              className=" flex gap-1 items-center justify-center"
-            >
-              <Cog size={18} />
-              Settings
-            </Button>
-
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant={"secondary"}>
@@ -277,6 +270,7 @@ export default function CompilerHeader() {
                 <DropdownMenuSeparator />
                 <DropdownMenuRadioGroup
                   value={position}
+                  defaultValue={"left"}
                   onValueChange={setPosition}
                   className="flex flex-row"
                 >
@@ -297,19 +291,73 @@ export default function CompilerHeader() {
 
             {isLoggedIn ? (
               <div className="flex gap-2">
-                <Button
-                  disabled={isLoading}
-                  onClick={handleLogout}
-                  variant={"destructive"}
-                >
-                  Logout
-                </Button>
-                <Avatar className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
-                  <AvatarImage src={currentUser.picture} />
-                  <AvatarFallback className="capitalize">
-                    {currentUser.username?.slice(0, 2)}
-                  </AvatarFallback>
-                </Avatar>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Avatar>
+                      <AvatarImage
+                        className="hover:cursor-pointer relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"
+                        src={currentUser.picture}
+                      />
+                      <AvatarFallback className="capitalize hover:cursor-pointer">
+                        {currentUser.username?.slice(0, 2)}
+                      </AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel>
+                      {isOwner ? (
+                        <Badge variant={"destructive"}>Owner</Badge>
+                      ) : (
+                        <Badge>Default</Badge>
+                      )}{" "}
+                      {currentUser.username}
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      <Link to={"/profile"}>
+                        <DropdownMenuItem className="hover:cursor-pointer">
+                          Profile
+                          {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
+                        </DropdownMenuItem>
+                      </Link>
+                      <Link to={"/profile/settings"}>
+                        <DropdownMenuItem className="hover:cursor-pointer">
+                          Settings
+                          {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
+                        </DropdownMenuItem>
+                      </Link>
+                      <DropdownMenuItem
+                        disabled
+                        className="hover:cursor-pointer"
+                      >
+                        Keyboard shortcuts
+                        <DropdownMenuShortcut>soon</DropdownMenuShortcut>
+                        {/* <DropdownMenuShortcut>⌘K</DropdownMenuShortcut> */}
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="hover:cursor-pointer">
+                      <a href="https://github.com/joblessgod" target="_blank">
+                        GitHub
+                      </a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="hover:cursor-pointer">
+                      <a href="/support">Support</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem disabled>
+                      API
+                      <DropdownMenuShortcut>soon</DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={handleLogout}
+                      className="hover:cursor-pointer"
+                    >
+                      Logout
+                      {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             ) : (
               <>

@@ -28,7 +28,7 @@ const formSchema = z.object({
 export default function Login() {
   const [signup, { isLoading }] = useSignupMutation();
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -71,7 +71,7 @@ export default function Login() {
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                Log In
+                Create an account
               </h1>
               <Form {...form}>
                 <form
@@ -106,7 +106,7 @@ export default function Login() {
                             disabled={isLoading}
                             placeholder="Email"
                             {...field}
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white "
+                            className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white "
                           />
                         </FormControl>
 
@@ -133,6 +133,26 @@ export default function Login() {
                       </FormItem>
                     )}
                   />
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center h-5">
+                      <div className="flex gap-1">
+                        <Input
+                          id="remember"
+                          aria-describedby="remember"
+                          type="checkbox"
+                          checked
+                          title="You can't disabled it!"
+                          className=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                        />
+                      </div>
+                      <div className="ml-3 text-sm">
+                        <label className="text-gray-500 dark:text-gray-300">
+                          Remember me
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
                   <Button
                     loading={isLoading}
                     disabled={isLoading}
@@ -141,6 +161,15 @@ export default function Login() {
                   >
                     Submit
                   </Button>
+                  <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                    Already have an account?{" "}
+                    <Link
+                      to={"/login"}
+                      className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                    >
+                      Log in
+                    </Link>
+                  </p>
                 </form>
               </Form>
             </div>

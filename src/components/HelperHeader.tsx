@@ -23,12 +23,14 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "../components/ui/dialog";
 import { Tabs, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { toast } from "sonner";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 export default function HelperHeader() {
   const [shareBtn, setShareBtn] = useState<boolean>(false);
@@ -50,7 +52,7 @@ export default function HelperHeader() {
         type: "text/javascript",
       });
       // const allCodeZipped = new Blob([fullCode], {
-      //   type: "text/zip",  
+      //   type: "text/zip",
       // });
 
       const htmlLink = document.createElement("a");
@@ -205,9 +207,41 @@ export default function HelperHeader() {
           <Download />
         </Button>
         {/* Info Button for newcomer */}
-        <Button variant={"secondary"} size={"icon"}>
-          <Info />
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant={"secondary"} size={"icon"}>
+              <Info />
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="items-center text-center">
+                Welcome to Live Code Editor!
+              </DialogTitle>
+              <DialogDescription>
+                Welcome to Live Code Editor! Create, edit, and collaborate on
+                web projects in real-time. Explore our features such as live
+                preview and multiple language support to enhance your coding
+                experience.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex items-center space-x-2">
+              <iframe
+                className="w-full h-full rounded-sm"
+                src="https://www.youtube.com/embed/HFFk1yxDvPk?si=p687RT6vApgrgtmQ"
+                title="YouTube video player"
+                allowFullScreen
+              ></iframe>
+            </div>
+            <DialogFooter className="sm:justify-center">
+              <DialogClose asChild>
+                <Button type="button" variant="secondary">
+                  Close
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

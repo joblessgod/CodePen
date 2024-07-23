@@ -6,8 +6,13 @@ export default function Home() {
       <Header />
 
       <div className=" bg-slate-950 w-full h-[calc(100dvh-60px)]  text-white flex justify-center items-center flex-col gap-4">
-        <div className="gap-1 w-full text-center ">
-          <h1 className="text-center text-4xl font-bold">Code Pen</h1>
+        <div className="gap-1  text-center ">
+          {/* <h1 className="text-center text-4xl font-bold">Code Pen</h1> */}
+          <img
+            src="/codepen-home_logo.png"
+            alt="Code Pen"
+            className="w-40 text-center select-none"
+          />
           <small className="text-slate-700">
             by{" "}
             <a

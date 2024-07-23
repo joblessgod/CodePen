@@ -111,80 +111,82 @@ export default function Header() {
                 </div>
               </div>
             </ul>
-            {isLoggedIn ? (
-              <div className="flex gap-2">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Avatar>
-                      <AvatarImage
-                        className="hover:cursor-pointer"
-                        src={currentUser.picture}
-                      />
-                      <AvatarFallback className="capitalize hover:cursor-pointer">
-                        {currentUser.username?.slice(0, 2)}
-                      </AvatarFallback>
-                    </Avatar>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56">
-                    <DropdownMenuLabel>
-                      {currentUser.username}
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuGroup>
-                      <Link to={"/profile"}>
-                        <DropdownMenuItem className="hover:cursor-pointer">
-                          Profile
-                          {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
+            <ul className="hidden md:flex gap-2">
+              {isLoggedIn ? (
+                <div className="flex gap-2">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Avatar>
+                        <AvatarImage
+                          className="hover:cursor-pointer"
+                          src={currentUser.picture}
+                        />
+                        <AvatarFallback className="capitalize hover:cursor-pointer">
+                          {currentUser.username?.slice(0, 2)}
+                        </AvatarFallback>
+                      </Avatar>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56">
+                      <DropdownMenuLabel>
+                        {currentUser.username}
+                      </DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuGroup>
+                        <Link to={"/profile"}>
+                          <DropdownMenuItem className="hover:cursor-pointer">
+                            Profile
+                            {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
+                          </DropdownMenuItem>
+                        </Link>
+                        <Link to={"/profile/settings"}>
+                          <DropdownMenuItem className="hover:cursor-pointer">
+                            Settings
+                            {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
+                          </DropdownMenuItem>
+                        </Link>
+                        <DropdownMenuItem
+                          disabled
+                          className="hover:cursor-pointer"
+                        >
+                          Keyboard shortcuts
+                          <DropdownMenuShortcut>soon</DropdownMenuShortcut>
+                          {/* <DropdownMenuShortcut>⌘K</DropdownMenuShortcut> */}
                         </DropdownMenuItem>
-                      </Link>
-                      <Link to={"/profile/settings"}>
-                        <DropdownMenuItem className="hover:cursor-pointer">
-                          Settings
-                          {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
-                        </DropdownMenuItem>
-                      </Link>
+                      </DropdownMenuGroup>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem className="hover:cursor-pointer">
+                        GitHub
+                      </DropdownMenuItem>
+                      <DropdownMenuItem className="hover:cursor-pointer">
+                        Support
+                      </DropdownMenuItem>
+                      <DropdownMenuItem disabled>
+                        API
+                        <DropdownMenuShortcut>soon</DropdownMenuShortcut>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
                       <DropdownMenuItem
-                        disabled
+                        onClick={handleLogout}
                         className="hover:cursor-pointer"
                       >
-                        Keyboard shortcuts
-                        <DropdownMenuShortcut>soon</DropdownMenuShortcut>
-                        {/* <DropdownMenuShortcut>⌘K</DropdownMenuShortcut> */}
+                        Logout
+                        {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
                       </DropdownMenuItem>
-                    </DropdownMenuGroup>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem className="hover:cursor-pointer">
-                      GitHub
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="hover:cursor-pointer">
-                      Support
-                    </DropdownMenuItem>
-                    <DropdownMenuItem disabled>
-                      API
-                      <DropdownMenuShortcut>soon</DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem
-                      onClick={handleLogout}
-                      className="hover:cursor-pointer"
-                    >
-                      Logout
-                      {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            ) : (
-              <>
-                <Link to="/signup">
-                  <Button variant={"success"}>Sign Up</Button>
-                </Link>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              ) : (
+                <>
+                  <Link to="/signup">
+                    <Button variant={"success"}>Sign Up</Button>
+                  </Link>
 
-                <Link to="/login">
-                  <Button variant={"secondary"}>Log In</Button>
-                </Link>
-              </>
-            )}
+                  <Link to="/login">
+                    <Button variant={"secondary"}>Log In</Button>
+                  </Link>
+                </>
+              )}
+            </ul>
           </div>
         </div>
       </nav>

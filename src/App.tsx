@@ -10,7 +10,6 @@ export default function App() {
   const { data, error } = useGetUserDetailsQuery();
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     if (data) {
       dispatch(updateCurrentUser(data));

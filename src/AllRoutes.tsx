@@ -10,6 +10,7 @@ const Login = lazy(() => import("./pages/Auth/Login"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const MyProfile = lazy(() => import("./pages/MyProfile"));
 const Settings = lazy(() => import("./pages/Settings"));
+const Support = lazy(() => import("./pages/Support"));
 
 export default function AllRoutes() {
   return (
@@ -28,6 +29,7 @@ export default function AllRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<MyProfile />} />
         <Route path="/profile/settings" element={<Settings />} />
+        <Route path="/support" element={<Support />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

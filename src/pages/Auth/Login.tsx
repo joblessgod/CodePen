@@ -66,7 +66,7 @@ export default function Signup() {
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                Sign Up
+                Welcome Back
               </h1>
               <Form {...form}>
                 <form
@@ -112,6 +112,31 @@ export default function Signup() {
                       </FormItem>
                     )}
                   />
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center h-5">
+                      <div className="flex gap-1">
+                        <Input
+                          id="remember"
+                          aria-describedby="remember"
+                          type="checkbox"
+                          checked
+                          title="You can't disabled it!"
+                          className=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                        />
+                      </div>
+                      <div className="ml-3 text-sm">
+                        <label className="text-gray-500 dark:text-gray-300">
+                          Remember me
+                        </label>
+                      </div>
+                    </div>
+                    <Link
+                      to={"#"}
+                      className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+                    >
+                      Forgot password?
+                    </Link>
+                  </div>
                   <Button
                     loading={isLoading}
                     disabled={isLoading}
@@ -120,6 +145,15 @@ export default function Signup() {
                   >
                     Log in
                   </Button>
+                  <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                    Don’t have an account yet?{" "}
+                    <Link
+                      to={"/signup"}
+                      className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                    >
+                      Sign up
+                    </Link>
+                  </p>
                 </form>
               </Form>
             </div>

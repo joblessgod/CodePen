@@ -41,11 +41,11 @@
   translate: 0% 0%;
 }
 
-.codepen-button:hover:before {
+/* .codepen-button:hover:before {
   animation-play-state: paused;
   transition-duration: 0.75s;
   translate: 0% 0%;
-}
+} */
 
 @keyframes an-at-keyframe-css-at-rule-that-translates-via-the-transform-property-the-background-by-negative-25-percent-of-its-width-so-that-it-gives-a-nice-border-animation_-We-use-the-translate-property-to-have-a-nice-transition-so-it_s-not-a-jerk-of-a-start-or-stop {
   to {
