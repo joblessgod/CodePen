@@ -4,9 +4,9 @@ export default function Footer() {
   return (
     <>
       <div className="bg-black text-[#9b9dad]">
-        <div className="!px-12 !py-10  justify-between font-light">
-          <ul className="grid grid-cols-2 gap-4">
-            <div className="grid md:gap-3 text-red-600">
+        <div className="!px-12 !py-10 md:flex justify-between font-light">
+          <ul className="grid grid-cols-2 md:grid-cols-1 gap-6 md:gap-1">
+            <div className="grid md:flex md:gap-3 ">
               <li className="font-sans font-semibold">CodePen</li>
               <a href="#" className="hover:text-white">
                 About
@@ -28,7 +28,7 @@ export default function Footer() {
               </a>
             </div>
 
-            <div className="grid md:gap-3">
+            <div className="grid md:flex md:gap-3">
               <li className="font-sans font-semibold">For</li>
               <a href="#" className="hover:text-white">
                 Teams
@@ -47,7 +47,7 @@ export default function Footer() {
               </a>
             </div>
 
-            <div className="grid md:gap-3">
+            <div className="grid md:flex md:gap-3">
               <li className="font-sans font-semibold">Social</li>
               <a href="#" className="hover:text-white">
                 YouTube
@@ -63,7 +63,7 @@ export default function Footer() {
               </a>
             </div>
 
-            <div className="grid md:gap-3">
+            <div className="grid md:flex md:gap-3">
               <li className="font-sans font-semibold">Community</li>
               <a href="#" className="hover:text-white">
                 Spark
@@ -106,7 +106,7 @@ export default function Footer() {
               </a>
             </li>
             <li className="italic text-[12px]">Demo or it didn' happen.</li>
-            <div className="flex gap-1 text-[12px]">
+            <div className=" gap-1  text-[12px]">
               <a href="#" className="hover:text-white">
                 Terms of Service
               </a>
