@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 export default function MyProfile() {
@@ -5,6 +6,7 @@ export default function MyProfile() {
     <>
       <Header />
       <div className="bg-slate-950 h-[calc(100dvh-60px)] ">My Profile</div>
+      <Footer />
     </>
   );
 }

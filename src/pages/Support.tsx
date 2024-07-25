@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import { toast } from "sonner";
+import Footer from "../components/Footer";
 
 export default function Support() {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ export default function Support() {
                 </button>
               </form>
             </div>
-                
+
             <div className="z-10 relative lg:col-span-2">
               <img
                 src="https://readymadeui.com/images/analtsis.webp"
@@ -69,6 +70,7 @@ export default function Support() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

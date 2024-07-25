@@ -17,6 +17,7 @@ import { useLoginMutation } from "../../redux/slices/api";
 import { handleError } from "../../utils/handleError";
 import { useDispatch } from "react-redux";
 import { updateCurrentUser, updateLoggedIn } from "../../redux/slices/appSlice";
+import Footer from "../../components/Footer";
 
 const formSchema = z.object({
   userId: z.string(),
@@ -160,6 +161,7 @@ export default function Signup() {
           </div>
         </div>
       </section>
+      <Footer/>
     </>
   );
 }
