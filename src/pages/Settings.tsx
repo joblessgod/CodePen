@@ -5,8 +5,10 @@ export default function Settings() {
   return (
     <>
       <Header />
-      <div className="bg-slate-950 h-[calc(100dvh-60px)] ">Settings</div>
-      <Footer />
+      <div className="h-[calc(100dvh-60px)]">
+        <div className="bg-slate-950 h-full">Settings</div>
+        <Footer />
+      </div>
     </>
   );
 }

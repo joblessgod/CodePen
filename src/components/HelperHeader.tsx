@@ -227,13 +227,6 @@ export default function HelperHeader() {
           <Download />
         </Button>
         {/* Info Button for newcomer */}
-        <Button
-          onClick={handleYouTubeSkeleton}
-          variant={"secondary"}
-          size={"icon"}
-        >
-          <Info />
-        </Button>
         <Dialog>
           <DialogTrigger asChild>
             <Button

@@ -23,7 +23,6 @@ export default function Home() {
   return (
     <div>
       <Header />
-
       <div className=" bg-slate-950 w-full h-[calc(100dvh-60px)] text-white flex justify-center items-center flex-col gap-4">
         <div className="gap-1 px-10 text-center ">
           {/* <h1 className="text-center text-4xl font-bold">Code Pen</h1> */}
@@ -69,7 +68,7 @@ export default function Home() {
         </div>
         {isApiLoading ? (
           <>
-            <p className="text-gray-500 text-center select-none ">
+            <p className="text-gray-500 text-center">
               Online HTML, CSS & JavaScript Code Editor <br /> GO try and share
               it with your friends!
             </p>
