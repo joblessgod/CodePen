@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
 import { Tally4, X } from "lucide-react";
@@ -23,6 +23,7 @@ import {
 import { Badge } from "./ui/badge";
 
 export default function Header() {
+  const navigate = useNavigate();
   // logout section
   const isLoggedIn = useSelector(
     (state: RootState) => state.appSlice.isLoggedIn
@@ -57,6 +58,7 @@ export default function Header() {
       await logout().unwrap();
       dispatch(updateCurrentUser({}));
       dispatch(updateLoggedIn(false));
+      navigate("/login");
     } catch (error) {
       handleError(error);
     }
