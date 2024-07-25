@@ -266,7 +266,12 @@ export default function CompilerHeader() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>Change View</DropdownMenuLabel>
+                <DropdownMenuLabel>
+                  Change View{" "}
+                  <small className="font-serif font-normal text-[10px] text-red-500">
+                    (SOON)
+                  </small>
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuRadioGroup
                   value={position}
