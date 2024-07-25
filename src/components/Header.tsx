@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tally4, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/slices/store";
@@ -20,6 +20,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu";
+import { Badge } from "./ui/badge";
 
 export default function Header() {
   // logout section
@@ -40,6 +41,17 @@ export default function Header() {
     setIsMenuOpen(!isMenuOpen);
   }
 
+  // for badge
+  const [isOwner, setIsOwner] = useState(false);
+
+  useEffect(() => {
+    if (currentUser.username == "JobLessGod") {
+      setIsOwner(true);
+    } else {
+      setIsOwner(false);
+    }
+  }, []);
+
   async function handleLogout() {
     try {
       await logout().unwrap();
@@ -51,7 +63,7 @@ export default function Header() {
   }
   return (
     <>
-      <nav className="w-full h-[60px] bg-gray-900 text-white p-3">
+      <nav className="w-full h-[60px] bg-gray-900 text-white p-3 md:!px-12  z-0">
         <div className="flex justify-between items-center">
           <Link to="/" className="font-bold select-none">
             <img
@@ -60,6 +72,7 @@ export default function Header() {
               className="w-40 select-none"
             />
           </Link>
+
           <div className="flex gap-2">
             <ul className="flex gap-2">
               <Link to="/pen">
@@ -118,7 +131,7 @@ export default function Header() {
                     <DropdownMenuTrigger asChild>
                       <Avatar>
                         <AvatarImage
-                          className="hover:cursor-pointer"
+                          className="hover:cursor-pointer relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"
                           src={currentUser.picture}
                         />
                         <AvatarFallback className="capitalize hover:cursor-pointer">
@@ -128,6 +141,11 @@ export default function Header() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56">
                       <DropdownMenuLabel>
+                        {isOwner ? (
+                          <Badge variant={"destructive"}>Owner</Badge>
+                        ) : (
+                          <Badge>Default</Badge>
+                        )}{" "}
                         {currentUser.username}
                       </DropdownMenuLabel>
                       <DropdownMenuSeparator />
@@ -155,10 +173,12 @@ export default function Header() {
                       </DropdownMenuGroup>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem className="hover:cursor-pointer">
-                        GitHub
+                        <a href="https://github.com/joblessgod" target="_blank">
+                          GitHub
+                        </a>
                       </DropdownMenuItem>
                       <DropdownMenuItem className="hover:cursor-pointer">
-                        Support
+                        <Link to={"/support"}>Support</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem disabled>
                         API
