@@ -31,6 +31,7 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { toast } from "sonner";
 import { DialogClose } from "@radix-ui/react-dialog";
+import Skeleton from "react-loading-skeleton";
 
 export default function HelperHeader() {
   const [shareBtn, setShareBtn] = useState<boolean>(false);
@@ -110,6 +111,25 @@ export default function HelperHeader() {
     (state: RootState) => state.compilerSlice.currentLanguage
   );
 
+  // YouTube Video | Skeleton
+  const [isApiLoading, setIsApiLoading] = useState(true);
+
+  function handleYouTubeSkeleton() {
+    setIsApiLoading(false);
+    console.log("before time");
+    console.log(isApiLoading); // This will log true initially
+
+    // delay 3s time
+    setTimeout(function () {
+      setIsApiLoading((prevState) => {
+        console.log("after time");
+        console.log(prevState); // This will log false because it was set to false earlier
+        return true;
+      });
+    }, 800);
+  }
+
+  // delayedHello();
   return (
     <div className="__helper_header h-[50px] bg-black text-white p-2 items-center justify-between flex">
       <div className="__tab_switcher flex gap-1 items-center justify-between">
@@ -207,9 +227,20 @@ export default function HelperHeader() {
           <Download />
         </Button>
         {/* Info Button for newcomer */}
+        <Button
+          onClick={handleYouTubeSkeleton}
+          variant={"secondary"}
+          size={"icon"}
+        >
+          <Info />
+        </Button>
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant={"secondary"} size={"icon"}>
+            <Button
+              onClick={handleYouTubeSkeleton}
+              variant={"secondary"}
+              size={"icon"}
+            >
               <Info />
             </Button>
           </DialogTrigger>
@@ -219,20 +250,60 @@ export default function HelperHeader() {
                 Welcome to Live Code Editor!
               </DialogTitle>
               <DialogDescription>
-                Welcome to Live Code Editor! Create, edit, and collaborate on
-                web projects in real-time. Explore our features such as live
-                preview and multiple language support to enhance your coding
-                experience.
+                {isApiLoading ? (
+                  <span>
+                    Welcome to Live Code Editor! Create, edit, and collaborate
+                    on web projects in real-time. Explore our features such as
+                    live preview and multiple language support to enhance your
+                    coding experience.
+                  </span>
+                ) : (
+                  <>
+                    <Skeleton
+                      duration={2}
+                      baseColor="#9b9b9b"
+                      className="h-2"
+                    />
+                    <Skeleton
+                      duration={2}
+                      baseColor="#9b9b9b"
+                      className="h-2"
+                    />
+                    <Skeleton
+                      duration={2}
+                      baseColor="#9b9b9b"
+                      className="h-2"
+                    />
+                  </>
+                )}
               </DialogDescription>
             </DialogHeader>
-            <div className="flex items-center space-x-2">
+            {isApiLoading ? (
+              <div className="flex items-center space-x-2">
+                <iframe
+                  className="w-full h-full rounded-sm"
+                  src="https://www.youtube.com/embed/HFFk1yxDvPk?si=p687RT6vApgrgtmQ"
+                  title="LIVE Code Editor | YouTube"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            ) : (
+              <>
+                <Skeleton
+                  duration={2}
+                  baseColor="#9b9b9b"
+                  className="w-[462.8px] h-[150.15px]"
+                />
+              </>
+            )}
+            {/* <div className="flex items-center space-x-2">
               <iframe
                 className="w-full h-full rounded-sm"
                 src="https://www.youtube.com/embed/HFFk1yxDvPk?si=p687RT6vApgrgtmQ"
                 title="YouTube video player"
                 allowFullScreen
               ></iframe>
-            </div>
+            </div> */}
             <DialogFooter className="sm:justify-center">
               <DialogClose asChild>
                 <Button type="button" variant="secondary">
