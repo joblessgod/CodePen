@@ -275,8 +275,8 @@ export default function HelperHeader() {
               <div className="flex items-center space-x-2">
                 <iframe
                   className="rounded-sm"
-{/*                   width="560" */}
-{/*                   height="315" */}
+                  width="560"
+                  height="315"
                   src="https://www.youtube.com/embed/GAXXlbUlxNg?si=0Q8oEB7Pr-wqCBNu"
                   title="LIVE Code Editor | YouTube"
                   allowFullScreen
