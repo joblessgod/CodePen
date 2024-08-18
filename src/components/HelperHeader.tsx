@@ -274,8 +274,7 @@ export default function HelperHeader() {
             {isApiLoading ? (
               <div className="flex items-center space-x-2">
                 <iframe
-                  className="rounded-sm"
-                  width="560"
+                  className="w-full rounded-sm"
                   height="315"
                   src="https://www.youtube.com/embed/GAXXlbUlxNg?si=0Q8oEB7Pr-wqCBNu"
                   title="LIVE Code Editor | YouTube"
