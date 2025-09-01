@@ -14,11 +14,10 @@ import { updateFullCode } from "../redux/slices/compilerSlice";
 import { toast } from "sonner";
 import CompilerHeader from "../components/compilerHeader";
 import { useLoadCodeMutation } from "../redux/slices/api";
-import Loading from "../components/Loading";
 
 export default function Compiler() {
   const { urlId } = useParams();
-  const [loadExistingCode, { isLoading }] = useLoadCodeMutation();
+  const [loadExistingCode] = useLoadCodeMutation();
   const dispatch = useDispatch();
 
   const loadCode = async () => {
@@ -42,17 +41,26 @@ export default function Compiler() {
       handleError(error);
     }
   };
+
+  const pageTitle = "Compiler";  // Dynamic part
+  const description = "This page has the compiler content.";
+
   useEffect(() => {
+    document.title = `${pageTitle} - LIVE Code Editor`;
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', description);
+    } else {
+      const meta = document.createElement('meta');
+      meta.setAttribute('name', 'description');
+      meta.setAttribute('content', description);
+      document.head.appendChild(meta);
+    }
+
     if (urlId) {
       loadCode();
     }
-  }, [urlId]);
-
-  if (isLoading) {
-    <div className="w-full h-[calc(100dvh-60px)]">
-      <Loading />;
-    </div>;
-  }
+  }, [urlId, pageTitle, description]);
 
   return (
     <>
@@ -60,12 +68,10 @@ export default function Compiler() {
       <div className="hidden md:contents">
         <ResizablePanelGroup
           direction="horizontal"
-          className=" rounded-lg border"
-        >
+          className=" rounded-lg border">
           <ResizablePanel
             className=" h-[calc(100dvh-65px)] w-full"
-            defaultSize={50}
-          >
+            defaultSize={50}>
             {/* Left side of a compiler */}
             <HelperHeader />
             <CodeEditor />
@@ -73,8 +79,7 @@ export default function Compiler() {
           <ResizableHandle withHandle className="" />
           <ResizablePanel
             className=" h-[calc(100dvh-65px)] w-full"
-            defaultSize={50}
-          >
+            defaultSize={50}>
             {/* Right side of a compiler */}
             <RenderCode />
           </ResizablePanel>
@@ -84,8 +89,7 @@ export default function Compiler() {
         <ResizablePanelGroup direction="vertical" className="rounded-lg border">
           <ResizablePanel
             defaultSize={50}
-            className="h-[calc(100dvh-65px)] w-full"
-          >
+            className="h-[calc(100dvh-65px)] w-full">
             <HelperHeader />
             <CodeEditor />
           </ResizablePanel>
@@ -93,8 +97,7 @@ export default function Compiler() {
           <ResizableHandle withHandle />
           <ResizablePanel
             defaultSize={50}
-            className="flex h-full items-center justify-center w-full"
-          >
+            className="flex h-full items-center justify-center w-full">
             <RenderCode />
           </ResizablePanel>
         </ResizablePanelGroup>
