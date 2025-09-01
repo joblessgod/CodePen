@@ -17,6 +17,7 @@
   <meta property="og:image" content="https://codepenn.vercel.app/og-image.png" />
   <meta property="og:thumbnail" content="https://codepenn.vercel.app/og-image.png" />
   <meta property="og:url" content="https://codepenn.vercel.app" />
+  <meta property="og:url" content="https://codepenn.vercel.app/*" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="CodePenn" />
   <meta property="og:footer" content="CodePenn | JobLessGod" />
@@ -35,6 +36,8 @@
 
     if (window.location.pathname === '/') {
       updateMetaTags("LIVE Code Editor", "An awesome open-source project built with Next.js", "https://codepenn.vercel.app", "https://codepenn.vercel.app/og-image.png");
+    } else if (window.location.pathname === '/pen') {
+      updateMetaTags("Compiler - LIVE Code Editor", "An awesome open-source project built with Next.js", "https://codepenn.vercel.app/pen", "https://codepenn.vercel.app/og-image.png");
     } else if (window.location.pathname.startsWith('/')) {
       updateMetaTags("Page - CodePenn", "Explore our content.", "https://codepenn.vercel.app" + window.location.pathname, "https://codepenn.vercel.app/og-image.png");
     }
