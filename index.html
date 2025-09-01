@@ -25,6 +25,21 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+  <script>
+    function updateMetaTags(title, description, url, image) {
+      document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+      document.querySelector('meta[property="og:description"]').setAttribute('content', description);
+      document.querySelector('meta[property="og:url"]').setAttribute('content', url);
+      document.querySelector('meta[property="og:image"]').setAttribute('content', image);
+    }
+
+    if (window.location.pathname === '/') {
+      updateMetaTags("LIVE Code Editor", "An awesome open-source project built with Next.js", "https://codepenn.vercel.app", "https://codepenn.vercel.app/og-image.png");
+    } else if (window.location.pathname.startsWith('/')) {
+      updateMetaTags("Page - CodePenn", "Explore our content.", "https://codepenn.vercel.app" + window.location.pathname, "https://codepenn.vercel.app/og-image.png");
+    }
+
+  </script>
 </body>
 
 </html>
