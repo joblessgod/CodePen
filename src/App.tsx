@@ -29,7 +29,7 @@ export default function App() {
     console.log(isApiLoading);
 
     setTimeout(function () {
-      setIsApiLoading((prevState) => {
+      setIsApiLoading(prevState => {
         console.log("after time");
         console.log(prevState);
         return true;
@@ -39,18 +39,12 @@ export default function App() {
 
   return (
     <>
-      {isApiLoading ? (
-        <>
-          <Toaster richColors position="bottom-right" theme="system" />
-          <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-            <AllRoutes />
-          </ThemeProvider>
-        </>
-      ) : (
-        <>
-          <ServerLoading />
-        </>
-      )}
+      <>
+        <Toaster richColors position="bottom-right" theme="system" />
+        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+          <AllRoutes />
+        </ThemeProvider>
+      </>
     </>
   );
 }
