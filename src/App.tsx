@@ -5,7 +5,6 @@ import { useGetUserDetailsQuery } from "./redux/slices/api";
 import { useDispatch } from "react-redux";
 import { updateCurrentUser, updateLoggedIn } from "./redux/slices/appSlice";
 import AllRoutes from "./AllRoutes";
-import ServerLoading from "./components/ServerLoading";
 
 export default function App() {
   const { data, error } = useGetUserDetailsQuery();
